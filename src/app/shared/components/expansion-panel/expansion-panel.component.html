@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="header" (click)="toggleDescription()">
+        <ng-content select="app-expansion-panel-header"></ng-content>        
+    </div>
+
+    <div class="body" *ngIf="showDescription()" [@openCloseExpansionPanel]="showDescription() ? 'open' : 'close'">
+        <ng-content select="app-expansion-panel-description"></ng-content>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+// Funções para light e dark
+@function light($color, $percentage) {
+    @return lighten($color, $percentage);
+}
+
+@function dark($color, $percentage) {
+    @return darken($color, $percentage);
+}
+
+// White color
+$white: #ffffff;
+
+// Black color
+$black: #000000;
+
+// Bed colors
+$red: #e74c3c;
+$red-lighter: light($red, 10%);
+$red-light: light($red, 20%);
+$red-dark: dark($red, 10%);
+$red-darker: dark($red, 20%);
+
+// Blue colors
+$blue: #3498db;
+$blue-lighter: light($blue, 10%);
+$blue-light: light($blue, 20%);
+$blue-dark: dark($blue, 10%);
+$blue-darker: dark($blue, 20%);
+
+// Green colors
+$green: #2ecc71;
+$green-lighter: light($green, 10%);
+$green-light: light($green, 20%);
+$green-dark: dark($green, 10%);
+$green-darker: dark($green, 20%);
+
+// Yellow colors
+$yellow: #f39c12;
+$yellow-lighter: light($yellow, 10%);
+$yellow-light: light($yellow, 20%);
+$yellow-dark: dark($yellow, 10%);
+$yellow-darker: dark($yellow, 20%);
+
+// Purple colors
+$purple: #9b59b6;
+$purple-lighter: light($purple, 10%);
+$purple-light: light($purple, 20%);
+$purple-dark: dark($purple, 10%);
+$purple-darker: dark($purple, 20%);
+
+// Orange colors
+$orange: #e67e22;
+$orange-lighter: light($orange, 10%);
+$orange-light: light($orange, 20%);
+$orange-dark: dark($orange, 10%);
+$orange-darker: dark($orange, 20%);
+
+// Grey colors
+$gray: #95a5a6;
+$gray-lighter: light($gray, 10%);
+$gray-light: light($gray, 20%);
+$gray-dark: dark($gray, 10%);
+$gray-darker: dark($gray, 20%);
+
+// Patterns
+$success: $green-dark;
+$info: $blue-dark;
+$warn: $yellow-dark;
+$error: $red-dark;

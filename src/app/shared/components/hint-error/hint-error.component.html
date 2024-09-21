@@ -1,0 +1,5 @@
+<div class="hint-error-container" *ngIf="!control.pristine">
+    <ng-container *ngFor="let infoError of infoErrors">
+        <p *ngIf="control.errors?.[infoError.error]" class="message">{{ infoError.message }}</p>
+    </ng-container>
+</div>

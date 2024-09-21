@@ -1,0 +1,27 @@
+@import '@assets/styles/variables.scss';
+
+.input-component-container {
+    .label {
+        display: block;
+        margin-bottom: $size-4;
+
+        color: $gray-darker;
+    }
+
+    .input {
+        padding: $size-8;
+        border: $border-thin solid $gray-lighter;
+        border-radius: $border-radius-soft;
+        outline: none;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+            border-color: $purple-dark;
+            box-shadow: 0 0 5px $blue-dark;
+        }
+
+        &::placeholder {
+            color: $gray-lighter;
+        }
+    }
+}

@@ -1,0 +1,9 @@
+<div class="input-component-container">
+    <label [for]="id" class="label">{{ label }}</label>
+    <input [id]="id" class="input"
+        [(ngModel)]="value"
+        (input)="setValue($event)"
+        [placeholder]="placeholder"
+        [type]="type"
+        [inputMask]="mask"/>
+</div>

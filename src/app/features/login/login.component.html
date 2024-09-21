@@ -1,0 +1,37 @@
+<div class="container">
+    <img class="login_logo" src="../../../assets/images/login_logo_boleiros.png" alt="">
+
+    <form [formGroup]="loginFormGroup" class="form-group">
+        <app-input
+            id="login-input-username-bBjsp9BX"
+            [formControlName]="LoginFormEnum.USERNAME"
+            label="Usuário"/>
+
+        <app-input
+            id="login-input-password-d124zJ80"
+            [type]="INPUT_TYPE.PASSWORD"
+            [formControlName]="LoginFormEnum.PASSWORD"
+            label="Senha"/>
+
+        <app-button
+            button-link
+            class="button-recovery-password"
+            id="login-button-recovery-password-Ta8NoqmU"
+            label="Recuperar senha"
+            (click)="goTo(RouteEnum.RECOVERY_PASSWORD)"/>
+    </form>
+
+    <div class="group-button">
+        <app-button
+            button-primary
+            id="login-button-TKfH2DgB"
+            label="Login"
+            (click)="signIn()"/>
+
+        <app-button
+            button-link
+            id="login-button-cp2SBdku"
+            label="Cadastrar"
+            (click)="goTo(RouteEnum.REGISTER)"/>
+    </div>
+</div>

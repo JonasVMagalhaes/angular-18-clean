@@ -1,0 +1,55 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "strictPropertyInitialization": false,
+    "useDefineForClassFields": false,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@styles/*": ["styles/*"],
+
+      "@features/*": ["app/features/*"],
+
+      "@adapters/*": ["app/core/adapters/*"],
+      "@entities/*": ["app/core/entities/*"],
+      "@enums/*": ["app/core/enums/*"],
+      "@guards/*": ["app/core/guards/*"],
+      "@interceptors/*": ["app/core/interceptors/*"],
+      "@models/*": ["app/core/models/*"],
+      "@routes/*": ["app/core/routes/*"],
+
+      "@components/*": ["app/shared/components/*"],
+      "@services/*": ["app/shared/services/*"],
+      "@providers/*": ["app/shared/providers/*"],
+      "@utils/*": ["app/shared/utils/*"],
+      "@validators/*": ["app/shared/validators/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

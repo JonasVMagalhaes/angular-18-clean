@@ -1,0 +1,14 @@
+@import '@assets/styles/variables.scss';
+
+.app-button {
+    cursor: pointer;
+    background-Color: white;
+    transition-duration: 0.2s;
+    box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 1px;
+    border: none;
+    border-radius: $border-radius-soft;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    padding: $size-12;
+    width: 100%;
+}
