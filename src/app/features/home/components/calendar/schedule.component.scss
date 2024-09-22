@@ -1,0 +1,16 @@
+@use "variables";
+
+.container {
+  @include variables.display-flex-column;
+  position: relative;
+
+  app-days {
+    z-index: 1;
+  }
+
+  app-button-add {
+    @include variables.display-grid;
+
+    z-index: 0;
+  }
+}

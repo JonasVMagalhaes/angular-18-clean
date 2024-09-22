@@ -2,9 +2,9 @@
 
 .container {
   @include variables.display-flex-row(space-between, center);
+  @include variables.full-width;
 
-  background-color: variables.$color-blue;
-  width: 100%;
+  background-color: variables.$color-purple-dark;
   padding: variables.$size-16;
   box-sizing: border-box;
 

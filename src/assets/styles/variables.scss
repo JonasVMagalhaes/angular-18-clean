@@ -1,5 +1,7 @@
 @forward "breakpoints/_breakpoints" as breakpoint-*;
 
+@forward "aspect-ratio/_aspect-ratio";
+
 @forward "colors/_colors" as color-*;
 
 @forward "display/_flex" hide display-flex, is-valid-justify-content, is-valid-align-items;

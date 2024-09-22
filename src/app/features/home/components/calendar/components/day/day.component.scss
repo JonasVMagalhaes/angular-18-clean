@@ -6,10 +6,10 @@
   @include variables.box-sizing-border;
   @include variables.full-width;
 
-  aspect-ratio: 3 / 4;
+  aspect-ratio: variables.$aspect-ratio-camera-old-landscape;
   padding: variables.$size-8;
   text-align: center;
-  border-radius: 8px;
+  border-radius: variables.$border-radius-soft-8;
   color: variables.$color-white;
   position: relative;
 
