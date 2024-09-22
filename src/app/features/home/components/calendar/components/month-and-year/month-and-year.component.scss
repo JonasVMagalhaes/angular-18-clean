@@ -1,13 +1,15 @@
+@use "variables";
+
 .container {
   align-items: center;
-  background-color: #f00;
   display: flex;
   justify-content: space-between;
+  background-color: variables.$color-blue;
   width: 100%;
-  padding: 16px;
+  padding: variables.$size-16;
   box-sizing: border-box;
 
   .month-name {
-    font-size: 24px;
+    font-size: variables.$size-24;
   }
 }

@@ -1,6 +1,6 @@
-@import '@assets/styles/colors/colors.scss';
-@import '@assets/styles/sizes/sizes.scss';
-@import '@assets/styles/sizes/border.scss';
-@import '@assets/styles/sizes/font-sizes.scss';
-@import '@assets/styles/sizes/border-radius.scss';
-@import '@assets/styles/breakpoints/breakpoints.scss';
+@forward "breakpoints/_breakpoints" as breakpoint-*;
+@forward "colors/_colors" as color-*;
+@forward "sizes/_sizes";
+@forward "sizes/_border" as border-*;
+@forward "sizes/_border-radius" as border-radius-*;
+@forward "sizes/_font-sizes" as font-size-*;
