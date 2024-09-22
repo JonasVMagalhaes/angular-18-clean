@@ -1,14 +1,17 @@
+@use "variables";
+
 .container {
-  background-color: #f00;
-  display: flex;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 16px;
-  overflow-x: scroll;
+  @include variables.display-flex-row;
+  @include variables.horizontal-scroll;
+  @include variables.box-sizing-border;
+  @include variables.full-width;
+
+  background-color: variables.$color-purple-dark;
+  padding: variables.$size-16;
 
   .date {
     height: 80px;
     width: 100px;
-    margin: 0 16px;
+    margin: variables.$size-0 variables.$size-16;
   }
 }

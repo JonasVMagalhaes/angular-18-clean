@@ -1,0 +1,21 @@
+@function is-valid-justify-content($value) {
+  $valid-values: center, flex-start, flex-end, space-between, space-around, space-evenly, stretch;
+  @if index($valid-values, $value) != null {
+    @return true;
+  }
+  @else {
+    @error "Invalid justify to: #{$value}. Valid values: #{$valid-values}";
+    @return false;
+  }
+}
+
+@function is-valid-align-items($value) {
+  $valid-values: flex-start, flex-end, center, baseline, stretch;
+  @if index($valid-values, $value) != null {
+    @return true;
+  }
+  @else {
+    @error "Invalid alignment to: #{$value}. Valid values: #{$valid-values}";
+    @return false;
+  }
+}

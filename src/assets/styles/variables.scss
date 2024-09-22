@@ -1,6 +1,16 @@
 @forward "breakpoints/_breakpoints" as breakpoint-*;
+
 @forward "colors/_colors" as color-*;
+
+@forward "display/_flex" hide display-flex, is-valid-justify-content, is-valid-align-items;
+@forward "display/_grid" hide grid, is-valid-justify-content, is-valid-align-items;
+@forward "display/_scroll";
+
+@forward "shapes/_triangle" as shape-*;
 @forward "sizes/_sizes";
 @forward "sizes/_border" as border-*;
 @forward "sizes/_border-radius" as border-radius-*;
+@forward "sizes/_box";
 @forward "sizes/_font-sizes" as font-size-*;
+
+@forward "transitions/_transitions" as transition-*;

@@ -1,0 +1,13 @@
+@import "validators";
+
+@mixin grid($justify: stretch, $align: stretch) {
+  display: grid;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin display-grid($justify: stretch, $align: stretch) {
+  @if is-valid-justify-content($justify) and is-valid-align-items($align) {
+    @include grid($justify, $align);
+  }
+}

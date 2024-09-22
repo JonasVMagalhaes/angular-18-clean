@@ -1,24 +1,24 @@
+@use "variables";
+
 .container {
-  border: 1px solid #fff;
-  width: 100%;
+  @include variables.display-grid(center, center);
+  @include variables.border-solid-thin(#fff);
+  @include variables.box-sizing-border;
+  @include variables.full-width;
+
   aspect-ratio: 3 / 4;
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  box-sizing: border-box;
+  padding: variables.$size-8;
   text-align: center;
   border-radius: 8px;
-  color: white;
+  color: variables.$color-white;
   position: relative;
 
   &:has(.input-hide:checked):after {
+    @include variables.shape-triangle('right', 12px);
+
     content: "";
     width: 0;
     height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 12px solid white;
     position: absolute;
     bottom: 0;
     justify-self: center;

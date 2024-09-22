@@ -1,0 +1,20 @@
+@import "validators";
+
+@mixin display-flex($direction: row, $justify: stretch, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin display-flex-column($justify: stretch, $align: stretch) {
+  @if is-valid-justify-content($justify) and is-valid-align-items($align) {
+    @include display-flex(column, $justify, $align);
+  }
+}
+
+@mixin display-flex-row($justify: stretch, $align: stretch) {
+  @if is-valid-justify-content($justify) and is-valid-align-items($align) {
+    @include display-flex(row, $justify, $align);
+  }
+}

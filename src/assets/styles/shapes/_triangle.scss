@@ -1,0 +1,63 @@
+@mixin triangle($direction, $size: 12px) {
+  @if type-of($size) != number or $size == 0 {
+    @error "Invalid size number";
+  }
+
+  $half-size: $size / 2;
+
+  @if $direction == top {
+    border-left: $half-size solid transparent;
+    border-right: $half-size solid transparent;
+    border-bottom: $size solid white;
+  } @else if $direction == bottom {
+    border-left: $half-size solid transparent;
+    border-right: $half-size solid transparent;
+    border-top: $size solid white;
+  } @else if $direction == left {
+    border-top: $half-size solid transparent;
+    border-bottom: $half-size solid transparent;
+    border-right: $size solid white;
+  } @else if $direction == right {
+    border-top: $half-size solid transparent;
+    border-bottom: $half-size solid transparent;
+    border-left: $size solid white;
+  } @else {
+    @error "Invalid direction. Valid options are: top, bottom, left, right";
+  }
+}
+
+@mixin smooth-triangle($direction, $size: 12px, $border-radius: 2px) {
+  @if type-of($size) != number or $size == 0 {
+    @error "Invalid size number";
+  }
+
+  $half-size: $size / 2;
+
+  @if $direction == top {
+    border-left: $half-size solid transparent;
+    border-right: $half-size solid transparent;
+    border-bottom: $size solid white;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  } @else if $direction == bottom {
+    border-left: $half-size solid transparent;
+    border-right: $half-size solid transparent;
+    border-top: $size solid white;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  } @else if $direction == left {
+    border-top: $half-size solid transparent;
+    border-bottom: $half-size solid transparent;
+    border-right: $size solid white;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  } @else if $direction == right {
+    border-top: $half-size solid transparent;
+    border-bottom: $half-size solid transparent;
+    border-left: $size solid white;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+  } @else {
+    @error "Invalid direction. Valid options are: top, bottom, left, right";
+  }
+}

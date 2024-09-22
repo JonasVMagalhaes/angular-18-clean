@@ -1,3 +1,9 @@
-$border-thin: 1px;
-$border-medium: 2px;
-$border-thick: 3px;
+$thin: 1px;
+$medium: 2px;
+$thick: 3px;
+
+@mixin solid-thin($color) {
+  border-style: solid;
+  border-width: $thin;
+  border-color: $color;
+}
