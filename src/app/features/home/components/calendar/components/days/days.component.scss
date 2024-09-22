@@ -1,0 +1,14 @@
+.container {
+  background-color: #f00;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  overflow-x: scroll;
+
+  .date {
+    height: 80px;
+    width: 100px;
+    margin: 0 16px;
+  }
+}

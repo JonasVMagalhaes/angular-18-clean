@@ -1,0 +1,30 @@
+.container {
+  border: 1px solid #fff;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 8px;
+  color: white;
+  position: relative;
+
+  &:has(.input-hide:checked):after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 12px solid white;
+    position: absolute;
+    bottom: 0;
+    justify-self: center;
+  }
+
+  .input-hide {
+    display: none;
+  }
+}
