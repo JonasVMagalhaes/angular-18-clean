@@ -4,6 +4,7 @@ import moment from "moment/moment";
 import {UUID} from "@utils/uuid/uuid-utils";
 import {DateItem} from "@features/home/components/calendar/models/date";
 import {DateUtils} from "@utils/date/date-utils";
+import {Scroll} from "@utils/scroller/scroller-utils";
 
 @Component({
   selector: 'app-days',
@@ -17,44 +18,50 @@ export class DaysComponent implements OnInit, AfterViewInit {
   days: DateItem[] = [];
 
   ngOnInit(): void {
-    this.populateDaysOfMonth();
+    this.populateDaysOfMonth(moment());
   }
 
   ngAfterViewInit(): void {
     this.scrollToCurrentDate();
+    this.selectCurrentDay();
   }
 
-  private populateDaysOfMonth(): void {
-    const quantityDaysOfMonth: number = moment().daysInMonth();
+  private populateDaysOfMonth(month: Date | string | moment.Moment): void {
+    const quantityDaysOfMonth: number = moment(month).daysInMonth();
+    console.log(quantityDaysOfMonth);
 
     for(let i: number = 0; i < quantityDaysOfMonth; i++) {
-      this.days.push({
-        date: moment().startOf("month").add(i, 'day'),
-        id: UUID.generate()
-      });
+      this.addDay();
     };
+  }
+
+  private addDay(): void {
+    this.days.push({
+      date: moment().startOf("month").add(this.days.length, 'day'),
+      id: UUID.generate()
+    });
+  }
+
+  private resetDaysList(): void {
+    this.days = [];
   }
 
   private scrollToCurrentDate(): void {
     const cardDayId: string = this.days.find((dateItem: DateItem) => DateUtils.dateIsToday(dateItem.date))?.id || "";
-    const listDaysElement: Element | null = document.querySelector(".days-component-container");
-    const cardDayElement: HTMLElement | null = document.getElementById(cardDayId);
+    const listDaysElement: HTMLElement = document.querySelector(".days-component-container") as HTMLElement;
+    const cardDayElement: HTMLElement = document.getElementById(cardDayId)?.parentElement?.parentElement as HTMLElement;
 
-    const cardDayElementRect: any = cardDayElement?.parentElement?.parentElement?.getBoundingClientRect();
-    const cardDayElementWidth: number = cardDayElementRect.width;
-    const windowWidth: number = window.innerWidth;
-
-    const scrollPosition: number = cardDayElementRect.left - (windowWidth / 2) + (cardDayElementWidth / 2);
-
-    listDaysElement?.scrollTo({
-      left: scrollPosition,
-      behavior: 'smooth'
-    });
-
-    this.selectCurrentDay(cardDayElement);
+    Scroll.scrollerHorizontalSmooth(cardDayElement, listDaysElement);
   }
 
-  private selectCurrentDay(cardDayElement: HTMLElement | null): void {
-    cardDayElement?.click();
+  private selectCurrentDay(): void {
+    const currentDayCardElement: HTMLElement = this.getCurrentDayCardElement();
+    const inputElement: HTMLElement | null = currentDayCardElement.querySelector("input");
+    inputElement?.click();
+  }
+
+  private getCurrentDayCardElement(): HTMLElement {
+    const cardDayId: string = this.days.find((dateItem: DateItem) => DateUtils.dateIsToday(dateItem.date))?.id || "";
+    return document.getElementById(cardDayId)?.parentElement?.parentElement as HTMLElement;
   }
 }
