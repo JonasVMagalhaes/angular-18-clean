@@ -1,4 +1,11 @@
 @use "variables";
 
 .container {
+  //padding: variables.$size-16;
+  //
+  .schedule {
+    display: block;
+    width: 100%;
+    //border-radius: variables.$border-radius-medium-15;
+  }
 }

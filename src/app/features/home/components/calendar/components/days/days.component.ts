@@ -51,7 +51,7 @@ export class DaysComponent implements OnInit, AfterViewInit {
       behavior: 'smooth'
     });
 
-  this.selectCurrentDay(cardDayElement);
+    this.selectCurrentDay(cardDayElement);
   }
 
   private selectCurrentDay(cardDayElement: HTMLElement | null): void {

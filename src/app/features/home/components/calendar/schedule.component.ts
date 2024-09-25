@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+
 import {MonthAndYearComponent} from "./components/month-and-year/month-and-year.component";
-import {ButtonAddComponent} from "./components/button-add/button-add.component";
 import {DaysComponent} from "@features/home/components/calendar/components/days/days.component";
 
 @Component({
@@ -8,8 +8,7 @@ import {DaysComponent} from "@features/home/components/calendar/components/days/
   standalone: true,
   imports: [
     MonthAndYearComponent,
-    DaysComponent,
-    ButtonAddComponent
+    DaysComponent
   ],
   templateUrl: './schedule.component.html',
   styleUrl: './schedule.component.scss'

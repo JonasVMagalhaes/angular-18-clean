@@ -15,6 +15,23 @@
       margin: variables.$size-0 variables.$size-16;
       width: 100px;
     }
+  }
+}
 
+@media only screen and (min-width: variables.$breakpoint-tablet-width) {
+  .days-component-container {
+    @include variables.display-grid;
+    @include variables.scroll-none;
+
+    gap: variables.$size-8;
+    grid-template-columns: repeat(7, 1fr);
+    padding: variables.$size-16;
+
+    app-day {
+      .day-component-container {
+        aspect-ratio: variables.$aspect-ratio-square;
+        margin: 0;
+      }
+    }
   }
 }
