@@ -36,6 +36,7 @@ export class DaysComponent implements OnChanges, AfterViewInit {
   }
 
   private onChangeSelectedMonth(): void {
+    console.log(this.selectedMonth)
     this.resetDaysList();
     this.populateDaysOfMonth();
     this.scrollToDateOnChangeMonth(this.selectedMonth)
@@ -47,11 +48,13 @@ export class DaysComponent implements OnChanges, AfterViewInit {
     for(let i: number = 0; i < quantityDaysOfMonth; i++) {
       this.addDay();
     }
+
+    console.log(this.days)
   }
 
   private addDay(): void {
     this.days.push({
-      value: moment().startOf("month").add(this.days.length, 'day'),
+      value: moment(this.selectedMonth.value).startOf("month").add(this.days.length, 'day'),
       id: UUID.generate()
     });
   }
