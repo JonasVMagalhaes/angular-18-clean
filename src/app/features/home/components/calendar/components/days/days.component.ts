@@ -33,10 +33,10 @@ export class DaysComponent implements OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.scrollToCurrentDate();
+    this.selectCurrentMonth();
   }
 
   private onChangeSelectedMonth(): void {
-    console.log(this.selectedMonth)
     this.resetDaysList();
     this.populateDaysOfMonth();
     this.scrollToDateOnChangeMonth(this.selectedMonth)
@@ -48,8 +48,6 @@ export class DaysComponent implements OnChanges, AfterViewInit {
     for(let i: number = 0; i < quantityDaysOfMonth; i++) {
       this.addDay();
     }
-
-    console.log(this.days)
   }
 
   private addDay(): void {
@@ -61,6 +59,14 @@ export class DaysComponent implements OnChanges, AfterViewInit {
 
   private resetDaysList(): void {
     this.days.length = 0;
+  }
+
+  private selectCurrentMonth(): void {
+    const cardDayId: string = this.days.find((dateItem: Day) => DateUtils.dateIsToday(dateItem.value))?.id || "";
+    const currentCardDay: HTMLElement = this.getDayCardElementById(cardDayId);
+    const inputCurrentCardDay: HTMLElement = currentCardDay.querySelector("input[type=radio]") as HTMLElement;
+
+    inputCurrentCardDay.click();
   }
 
   private scrollToDateOnChangeMonth(selectedMonth: Month): void {
@@ -75,9 +81,9 @@ export class DaysComponent implements OnChanges, AfterViewInit {
 
   private scrollToCurrentDate(): void {
     const cardDayId: string = this.days.find((dateItem: Day) => DateUtils.dateIsToday(dateItem.value))?.id || "";
-    const currentCard: HTMLElement = this.getDayCardElementById(cardDayId);
+    const currentCardDay: HTMLElement = this.getDayCardElementById(cardDayId);
 
-    Scroll.scrollerHorizontalSmooth(currentCard, currentCard.parentElement?.parentElement as HTMLElement);
+    Scroll.scrollerHorizontalSmooth(currentCardDay, currentCardDay.parentElement?.parentElement as HTMLElement);
   }
 
   private scrollToLastDate(): void {

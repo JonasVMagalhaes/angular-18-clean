@@ -3,13 +3,15 @@ import { Router } from '@angular/router';
 
 import { RouteEnum } from '@enums/routes/route.enum';
 import {ScheduleComponent} from "./components/calendar/schedule.component";
+import {PatientListComponent} from "@features/home/components/patient/list-patient/patient-list.component";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   standalone: true,
   imports: [
-    ScheduleComponent
+    ScheduleComponent,
+    PatientListComponent
   ],
   styleUrl: './home.component.scss'
 })

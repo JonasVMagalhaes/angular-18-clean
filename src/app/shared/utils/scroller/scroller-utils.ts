@@ -19,7 +19,6 @@ export class Scroll {
   }
 
   static scrollerHorizontalSmooth(childElement: HTMLElement, parentElement: HTMLElement): void {
-    console.log(childElement.getBoundingClientRect());
     this.scroller.horizontal(childElement, parentElement as HTMLElement, "smooth");
   }
 
