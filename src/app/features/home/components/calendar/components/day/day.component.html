@@ -1,7 +1,9 @@
-<label class="container" [for]="id">
-  <span class="abbreviate-month">Março</span>
-  <span class="date">01</span>
+<div class="day-component-container">
+  <label [for]="dateItem.id" class="day-component-container__label">
+    <span class="abbreviate-month">{{ getDayName(dateItem.date) }}</span>
+    <span class="date">{{ getDate(dateItem.date) }}</span>
 
-  <input [id]="id" class="input-hide" type="radio" name="input-day">
-</label>
+    <input [id]="dateItem.id" class="input-hide" type="radio" name="input-day">
+  </label>
+</div>
 

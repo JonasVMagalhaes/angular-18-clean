@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import {UUID} from "@utils/uuid/uuid-utils";
+import {Component, Input} from '@angular/core';
+import moment from "moment";
+import {DateItem} from "@features/home/components/calendar/models/date";
 
 @Component({
   selector: 'app-day',
@@ -9,5 +10,14 @@ import {UUID} from "@utils/uuid/uuid-utils";
   styleUrl: './day.component.scss'
 })
 export class DayComponent {
-  id: string = UUID.generate();
+  @Input({ required: true }) dateItem: DateItem;
+
+  getDate(date: moment.Moment): any {
+      return date.format("DD");
+  }
+
+  getDayName(date: moment.Moment): any {
+    const days: string[] = moment.weekdays();
+    return days[date.day()];
+  }
 }

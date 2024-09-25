@@ -11,3 +11,7 @@ $size-64: 64px;
 @mixin full-width {
   width: 100%;
 }
+
+@mixin full-height {
+  height: 100%;
+}

@@ -1,5 +1,5 @@
-<div class="container">
+<div class="days-component-container">
   @for (day of days; track day) {
-    <app-day class="date"/>
+    <app-day class="date" [dateItem]="day"/>
   }
 </div>

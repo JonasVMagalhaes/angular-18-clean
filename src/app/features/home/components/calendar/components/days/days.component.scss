@@ -1,6 +1,6 @@
 @use "variables";
 
-.container {
+.days-component-container {
   @include variables.display-flex-row;
   @include variables.horizontal-scroll;
   @include variables.box-sizing-border;
@@ -9,9 +9,12 @@
   background-color: variables.$color-purple-dark;
   padding: variables.$size-16;
 
-  .date {
-    height: 80px;
-    width: 100px;
-    margin: variables.$size-0 variables.$size-16;
+  app-day {
+    .day-component-container {
+      aspect-ratio: variables.$aspect-ratio-camera-old-landscape;
+      margin: variables.$size-0 variables.$size-16;
+      width: 100px;
+    }
+
   }
 }

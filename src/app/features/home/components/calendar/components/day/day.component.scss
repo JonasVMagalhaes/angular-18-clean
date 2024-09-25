@@ -1,30 +1,35 @@
 @use "variables";
 
-.container {
-  @include variables.display-grid(center, center);
+.day-component-container {
   @include variables.border-solid-thin(#fff);
   @include variables.box-sizing-border;
-  @include variables.full-width;
 
-  aspect-ratio: variables.$aspect-ratio-camera-old-landscape;
-  padding: variables.$size-8;
   text-align: center;
   border-radius: variables.$border-radius-soft-8;
   color: variables.$color-white;
-  position: relative;
+  height: 100%;
+  width: 100%;
 
-  &:has(.input-hide:checked):after {
-    @include variables.shape-triangle('right', 12px);
+  .day-component-container__label {
+    @include variables.display-flex-column(space-evenly, center);
+    @include variables.full-width;
+    @include variables.full-height;
 
-    content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    bottom: 0;
-    justify-self: center;
-  }
+    position: relative;
 
-  .input-hide {
-    display: none;
+    &:has(.input-hide:checked):after {
+      @include variables.shape-triangle('top', 12px);
+
+      content: "";
+      width: 0;
+      height: 0;
+      position: absolute;
+      bottom: 0;
+      justify-self: center;
+    }
+
+    .input-hide {
+      display: none;
+    }
   }
 }
