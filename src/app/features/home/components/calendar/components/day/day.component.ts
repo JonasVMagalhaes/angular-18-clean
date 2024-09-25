@@ -1,23 +1,30 @@
-import {Component, Input} from '@angular/core';
-import moment from "moment";
-import {DateItem} from "@features/home/components/calendar/models/date";
+import {Component, Input, WritableSignal} from '@angular/core';
+import moment, {Moment} from "moment";
+import {Month} from "@features/home/components/calendar/models/month";
+import {Day} from "@features/home/components/calendar/models/day";
+import {NgClass} from "@angular/common";
+// import {DateItem} from "@features/home/components/calendar/models/day";
 
 @Component({
   selector: 'app-day',
   standalone: true,
-  imports: [],
+  imports: [
+    NgClass
+  ],
   templateUrl: './day.component.html',
   styleUrl: './day.component.scss'
 })
 export class DayComponent {
-  @Input({ required: true }) dateItem: DateItem;
+  // @Input({ required: true }) selectedMonth: WritableSignal<Month>;
 
-  getDate(date: moment.Moment): any {
-      return date.format("DD");
+  @Input({ required: true }) day: Day;
+  //
+  getDate(day: Day): any {
+      return day.value.format("DD");
   }
-
-  getDayName(date: moment.Moment): any {
+  //
+  getDayName(day: Day): any {
     const days: string[] = moment.weekdays();
-    return days[date.day()];
+    return days[day.value.date()];
   }
 }

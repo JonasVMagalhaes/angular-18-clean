@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MonthAndYearComponent } from './month-and-year.component';
+import { MonthComponent } from './month.component';
 
 describe('MonthAndYearComponent', () => {
-  let component: MonthAndYearComponent;
-  let fixture: ComponentFixture<MonthAndYearComponent>;
+  let component: MonthComponent;
+  let fixture: ComponentFixture<MonthComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MonthAndYearComponent]
+      imports: [MonthComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MonthAndYearComponent);
+    fixture = TestBed.createComponent(MonthComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

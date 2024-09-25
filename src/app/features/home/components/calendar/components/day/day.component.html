@@ -1,9 +1,9 @@
-<div class="day-component-container">
-  <label [for]="dateItem.id" class="day-component-container__label">
-    <span class="abbreviate-month">{{ getDayName(dateItem.date) }}</span>
-    <span class="date">{{ getDate(dateItem.date) }}</span>
+<div class="day-component-container" [ngClass]="day.id">
+  <label [for]="day.id" class="day-component-container__label">
+    <span class="abbreviate-month">{{ getDayName(day) }}</span>
+    <span class="date">{{ getDate(day) }}</span>
 
-    <input [id]="dateItem.id" class="input-hide" type="radio" name="input-day">
+    <input [id]="day.id" class="input-hide" type="radio" name="input-day">
   </label>
 </div>
 

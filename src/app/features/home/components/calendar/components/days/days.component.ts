@@ -1,10 +1,15 @@
-import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {DayComponent} from "@features/home/components/calendar/components/day/day.component";
+import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
+
 import moment from "moment/moment";
+
+import {Month} from "@features/home/components/calendar/models/month";
+import {MonthChangeEvent} from "@features/home/components/calendar/models/month-change-event.interface";
+import {DayComponent} from "@features/home/components/calendar/components/day/day.component";
+import {Day} from "@features/home/components/calendar/models/day";
 import {UUID} from "@utils/uuid/uuid-utils";
-import {DateItem} from "@features/home/components/calendar/models/date";
 import {DateUtils} from "@utils/date/date-utils";
 import {Scroll} from "@utils/scroller/scroller-utils";
+
 
 @Component({
   selector: 'app-days',
@@ -14,54 +19,92 @@ import {Scroll} from "@utils/scroller/scroller-utils";
   styleUrl: './days.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class DaysComponent implements OnInit, AfterViewInit {
-  days: DateItem[] = [];
+export class DaysComponent implements OnChanges, AfterViewInit {
+  @Input({ required: true }) selectedMonth: Month;
 
-  ngOnInit(): void {
-    this.populateDaysOfMonth(moment());
+  readonly days: Day[] = [];
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['selectedMonth']) {
+      this.selectedMonth = changes['selectedMonth'].currentValue;
+      this.onChangeSelectedMonth();
+    }
   }
 
   ngAfterViewInit(): void {
     this.scrollToCurrentDate();
-    this.selectCurrentDay();
   }
 
-  private populateDaysOfMonth(month: Date | string | moment.Moment): void {
-    const quantityDaysOfMonth: number = moment(month).daysInMonth();
-    console.log(quantityDaysOfMonth);
+  private onChangeSelectedMonth(): void {
+    this.resetDaysList();
+    this.populateDaysOfMonth();
+    this.scrollToDateOnChangeMonth(this.selectedMonth)
+  }
+
+  private populateDaysOfMonth(): void {
+    const quantityDaysOfMonth: number = this.selectedMonth.value.daysInMonth();
 
     for(let i: number = 0; i < quantityDaysOfMonth; i++) {
       this.addDay();
-    };
+    }
   }
 
   private addDay(): void {
     this.days.push({
-      date: moment().startOf("month").add(this.days.length, 'day'),
+      value: moment().startOf("month").add(this.days.length, 'day'),
       id: UUID.generate()
     });
   }
 
   private resetDaysList(): void {
-    this.days = [];
+    this.days.length = 0;
+  }
+
+  private scrollToDateOnChangeMonth(selectedMonth: Month): void {
+    if(selectedMonth.changeMonthEvent === MonthChangeEvent.NEXT) {
+      this.scrollToFirstDate();
+    }
+
+    if(selectedMonth.changeMonthEvent === MonthChangeEvent.PREVIOUS) {
+      this.scrollToLastDate();
+    }
   }
 
   private scrollToCurrentDate(): void {
-    const cardDayId: string = this.days.find((dateItem: DateItem) => DateUtils.dateIsToday(dateItem.date))?.id || "";
-    const listDaysElement: HTMLElement = document.querySelector(".days-component-container") as HTMLElement;
-    const cardDayElement: HTMLElement = document.getElementById(cardDayId)?.parentElement?.parentElement as HTMLElement;
+    const cardDayId: string = this.days.find((dateItem: Day) => DateUtils.dateIsToday(dateItem.value))?.id || "";
+    const currentCard: HTMLElement = this.getDayCardElementById(cardDayId);
 
-    Scroll.scrollerHorizontalSmooth(cardDayElement, listDaysElement);
+    Scroll.scrollerHorizontalSmooth(currentCard, currentCard.parentElement?.parentElement as HTMLElement);
   }
 
-  private selectCurrentDay(): void {
-    const currentDayCardElement: HTMLElement = this.getCurrentDayCardElement();
-    const inputElement: HTMLElement | null = currentDayCardElement.querySelector("input");
-    inputElement?.click();
+  private scrollToLastDate(): void {
+    const listDayCardElement: HTMLElement = this.getListDayCardsElement();
+    Scroll.scrollerHorizontalInstantToEnd(listDayCardElement as HTMLElement);
   }
 
-  private getCurrentDayCardElement(): HTMLElement {
-    const cardDayId: string = this.days.find((dateItem: DateItem) => DateUtils.dateIsToday(dateItem.date))?.id || "";
-    return document.getElementById(cardDayId)?.parentElement?.parentElement as HTMLElement;
+  private scrollToFirstDate(): void {
+    const listDayCardElement: HTMLElement = this.getListDayCardsElement();
+    Scroll.scrollerHorizontalInstantToStart(listDayCardElement as HTMLElement);
+  }
+
+  private getListDayCardsElement(): HTMLElement {
+    return document.querySelector(".days-component-container") as HTMLElement;
+  }
+
+  private getAllDayCardsInList(): NodeListOf<Element> {
+    const listDaysElement: HTMLElement = this.getListDayCardsElement();
+    return listDaysElement.querySelectorAll('.day-component-container');
+  }
+
+  private getInputElementFromDayCard(dayCard: HTMLElement): HTMLElement {
+    return dayCard.querySelector('input[type=radio]') as HTMLElement;
+  }
+
+  private getDayCardElementById(id: string): HTMLElement {
+    const dayCards: Element[] = Array.from(this.getAllDayCardsInList());
+    return dayCards.find(dayCard => {
+      const inputElement: HTMLElement = this.getInputElementFromDayCard(dayCard as HTMLElement);
+      return inputElement.id === id;
+    }) as HTMLElement;
   }
 }
