@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScheduleComponent } from './schedule.component';
 
-describe('CalendarComponent', () => {
+describe(ScheduleComponent.name, () => {
   let component: ScheduleComponent;
   let fixture: ComponentFixture<ScheduleComponent>;
 

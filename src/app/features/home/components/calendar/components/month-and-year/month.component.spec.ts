@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MonthComponent } from './month.component';
 
-describe('MonthAndYearComponent', () => {
+describe(MonthComponent.name, () => {
   let component: MonthComponent;
   let fixture: ComponentFixture<MonthComponent>;
 
