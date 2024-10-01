@@ -15,4 +15,6 @@
 @forward "sizes/_box";
 @forward "sizes/_font-sizes" as font-size-*;
 
+@forward "shadows/text-shadow" as text-shadow-*;
+
 @forward "transitions/_transitions" as transition-*;

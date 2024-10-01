@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
-import {RouterLink} from "@angular/router";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 import {RouteEnum} from "@enums/routes/route.enum";
 
 @Component({
@@ -9,7 +9,8 @@ import {RouteEnum} from "@enums/routes/route.enum";
     standalone: true,
   imports: [
     MatIcon,
-    RouterLink
+    RouterLink,
+    RouterLinkActive
   ],
     styleUrl: './private-footer.component.scss'
 })

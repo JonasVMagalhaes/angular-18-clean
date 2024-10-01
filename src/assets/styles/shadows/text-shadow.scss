@@ -1,0 +1,12 @@
+@mixin thin($color: #000) {
+  text-shadow: 1px 1px 1px $color;
+}
+
+@mixin medium($color: #000) {
+  text-shadow: 2px 2px 2px $color;
+}
+
+@mixin thick($color: #000) {
+  text-shadow: 3px 3px 3px $color;
+}
+

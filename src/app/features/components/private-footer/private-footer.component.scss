@@ -4,5 +4,12 @@
   @include variables.border-solid-thin(variables.$color-gray-lighter);
   @include variables.display-flex-row(space-evenly, center);
 
+  color: variables.$color-gray-lighter;
   min-height: 56px;
+
+  .active-route {
+    @include variables.text-shadow-thick(variables.$color-gray-lighter);
+
+    color: variables.$color-gray-darker;
+  }
 }
