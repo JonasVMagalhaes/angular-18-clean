@@ -1,4 +1,29 @@
 @use "variables";
 
 .container {
+  @include variables.display-grid;
+
+  grid-template:
+    "datetime divisor patiente-name"
+    "avatar   divisor patiente-detail";
+
+  .datetime {
+    grid-area: datetime;
+  }
+
+  .divisor {
+    grid-area: divisor;
+  }
+
+  .avatar {
+    grid-area: avatar;
+  }
+
+  .patiente-name {
+    grid-area: patiente-name;
+  }
+
+  .patient-detail {
+    grid-area: patient-detail;
+  }
 }

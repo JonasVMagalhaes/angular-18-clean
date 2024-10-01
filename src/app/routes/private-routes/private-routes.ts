@@ -1,6 +1,7 @@
 import { RouteEnum } from '@enums/routes/route.enum';
 import { HomeComponent } from '@features/home/home.component';
 import {Routes} from "@angular/router";
+import {ConfigurationComponent} from "@features/configuration/configuration.component";
 
 export const privateRoutes: Routes = [
   {
@@ -11,6 +12,6 @@ export const privateRoutes: Routes = [
   {
     path: RouteEnum.CONFIG,
     title: "Configurações",
-    loadComponent: () => HomeComponent,
+    loadComponent: () => ConfigurationComponent,
   },
 ]

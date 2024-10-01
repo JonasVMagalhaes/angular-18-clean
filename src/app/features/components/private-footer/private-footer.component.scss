@@ -1,0 +1,8 @@
+@use 'variables';
+
+.container {
+  @include variables.border-solid-thin(variables.$color-gray-lighter);
+  @include variables.display-flex-row(space-evenly, center);
+
+  min-height: 56px;
+}

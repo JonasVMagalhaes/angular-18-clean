@@ -1,6 +1,7 @@
 <div class="container">
-  <app-patient-list-item />
-  <app-patient-list-item />
-  <app-patient-list-item />
-  <app-patient-list-item />
+  <mat-list>
+    @for (patient of patients; track patient.id) {
+      <app-patient-list-item />
+    }
+  </mat-list>
 </div>
