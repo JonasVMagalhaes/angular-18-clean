@@ -5,10 +5,7 @@ export enum RouteEnum {
     REGISTER_GAME = 'register-game',
     RECOVERY_PASSWORD = 'recovery-password',
     RESET_PASSWORD = 'reset-password',
-    GAME = 'game',
-    GAME_DETAILS = 'game-details',
-    PLAYER = 'player',
+    SCHEDULE = 'schedule',
     HOME = 'home',
     CONFIG = 'configuration',
-    TEAM = 'team'
 }

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: () => {
           this.messageService.toast('Authenticado com sucesso');
-          this.router.navigate([RouteEnum.HOME]);
+          this.router.navigate([RouteEnum.SCHEDULE]);
         },
         error: (err: Error) => this.messageService.toast(err.message)
       });

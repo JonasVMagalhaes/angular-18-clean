@@ -6,7 +6,12 @@ import {ScheduleResolverService} from "../../core/resolvers/schedule-resolver.se
 
 export const privateRoutes: Routes = [
   {
-    path: RouteEnum.HOME,
+    path: "",
+    redirectTo: RouteEnum.SCHEDULE,
+    pathMatch: "full",
+  },
+  {
+    path: RouteEnum.SCHEDULE,
     title: "Bem vindo",
     resolve: {
       schedule: ScheduleResolverService
@@ -18,4 +23,8 @@ export const privateRoutes: Routes = [
     title: "Configurações",
     loadComponent: () => ConfigurationComponent,
   },
+  {
+    path: "**",
+    redirectTo: RouteEnum.SCHEDULE,
+  }
 ]
