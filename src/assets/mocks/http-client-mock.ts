@@ -8,22 +8,32 @@ import { PrimitiveRegisterResponse } from "@models/primitives/register/register-
 import { PrimitiveSignInResponse } from "@models/primitives/sign-in/sign-in-response.interface";
 import { ErrorRequisition } from "@models/requisitions/error-requisition";
 import { Observable, of, throwError } from "rxjs";
+import {PrimitiveScheduleResponse} from "@models/primitives/schedule/schedule-response.interface";
 
 @Injectable()
 export class HttpClientMock extends HttpClient {
     override post(url: string, body: any | null, options: any): Observable<any> {
-        switch(url) {
-            case Primitive.SIGN: return MockPrimitives.sign(body);
-            case Primitive.REGISTER: return MockPrimitives.register(body);
+      switch(url) {
+            case Primitive.SIGN: return MockPrimitives.postSign(body);
+            case Primitive.REGISTER: return MockPrimitives.postRegister(body);
             default: super.post(url, body, options);
         }
 
-        return of();        
+        return of();
+    }
+
+    override get(url: string): Observable<any> {
+      switch(url) {
+        case Primitive.SCHEDULE: return MockPrimitives.getSchedule();
+        default: super.get(url);
+      }
+
+      return of({});
     }
 }
 
 class MockPrimitives {
-    static sign(body: AuthCredentials): Observable<PrimitiveSignInResponse> {
+    static postSign(body: AuthCredentials): Observable<PrimitiveSignInResponse> {
         const validUsers = [
             { username: "jonas", password: "123" },
             { username: "moises", password: "124" }
@@ -37,12 +47,12 @@ class MockPrimitives {
 
         if(validUsers.some((validUser: any) => validUser.username === body.username && validUser.password === body.password)){
             return of({ access_token: '123456789', expires_in: new Date().getDate() });
-        } else {            
+        } else {
             return throwError(() => errorUnauthorized);
-        }        
+        }
     }
 
-    static register(body: any | null): Observable<PrimitiveRegisterResponse> {
+    static postRegister(body: any | null): Observable<PrimitiveRegisterResponse> {
         const validUsers = [
             { username: "jonas", password: "MinhaSenha123$" },
             { username: "moises", password: "MinhaSenha124$" }
@@ -76,8 +86,13 @@ class MockPrimitives {
 
         if(validUsers.some((validUser: any) => validUser.username === body.username && validUser.password === body.password)){
             return of({ access_token: '123456789', expires_in: new Date().getDate()});
-        } else {            
+        } else {
             return throwError(() => errorUnauthorized);
         }
+    }
+
+    static getSchedule(): Observable<PrimitiveScheduleResponse> {
+      console.log(this.getSchedule())
+      return of({});
     }
 }

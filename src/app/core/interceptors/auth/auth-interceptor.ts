@@ -8,7 +8,7 @@ import { CacheService } from "@services/cache/cache.service";
 import {Observable, of, switchMap, tap} from "rxjs";
 
 const authenticatedPrimitives: Primitive[] = [
-  Primitive.TESTE
+  Primitive.SCHEDULE
 ];
 
 function getRequestAuthenticated(request: HttpRequest<unknown>, auth_token: Auth): HttpRequest<unknown> {

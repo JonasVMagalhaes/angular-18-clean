@@ -7,6 +7,7 @@ import { CheckUpdatesModule } from '@services/sw-updates/check-updates.module';
 import { CheckUpdatesService } from '@services/sw-updates/check-updates.service';
 import {MessageService} from "@services/message/message.service";
 import {CacheService} from "@services/cache/cache.service";
+import {ScheduleService} from "@entities/schedule/services/schedule.service";
 
 @Component({
   selector: 'app-root',
@@ -14,12 +15,13 @@ import {CacheService} from "@services/cache/cache.service";
   imports: [
     RouterOutlet,
     CheckUpdatesModule,
-    HttpClientAdapterModule
+    HttpClientAdapterModule,
   ],
   providers: [
     AuthService,
     CacheService,
-    MessageService
+    MessageService,
+    ScheduleService
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
