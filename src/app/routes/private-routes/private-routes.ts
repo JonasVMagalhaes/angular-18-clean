@@ -12,7 +12,7 @@ export const privateRoutes: Routes = [
   },
   {
     path: RouteEnum.SCHEDULE,
-    title: "Bem vindo",
+    title: "Calendário",
     resolve: {
       schedule: ScheduleResolverService
     },
