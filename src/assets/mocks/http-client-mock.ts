@@ -23,6 +23,7 @@ export class HttpClientMock extends HttpClient {
     }
 
     override get(url: string): Observable<any> {
+      console.log("get");
       switch(url) {
         case Primitive.SCHEDULE: return MockPrimitives.getSchedule();
         default: super.get(url);
@@ -92,7 +93,7 @@ class MockPrimitives {
     }
 
     static getSchedule(): Observable<PrimitiveScheduleResponse> {
-      console.log(this.getSchedule())
+      console.log('Schedule')
       return of({});
     }
 }

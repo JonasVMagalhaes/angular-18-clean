@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import {HttpClientAdapterModule} from "@adapters/http-client/http-client-adapter";
-import {AuthService} from "@entities/auth/services/auth.service";
 import { CheckUpdatesModule } from '@services/sw-updates/check-updates.module';
 import { CheckUpdatesService } from '@services/sw-updates/check-updates.service';
-import {MessageService} from "@services/message/message.service";
-import {CacheService} from "@services/cache/cache.service";
-import {ScheduleService} from "@entities/schedule/services/schedule.service";
 
 @Component({
   selector: 'app-root',
@@ -15,13 +10,6 @@ import {ScheduleService} from "@entities/schedule/services/schedule.service";
   imports: [
     RouterOutlet,
     CheckUpdatesModule,
-    HttpClientAdapterModule,
-  ],
-  providers: [
-    AuthService,
-    CacheService,
-    MessageService,
-    ScheduleService
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

@@ -2,10 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { RouteEnum } from '@enums/routes/route.enum';
-import { PublicRoutesComponent } from '../public-routes/public-routes.component';
-import { PrivateRoutesComponent } from '../private-routes/private-routes.component';
 import { publicRouteGuard } from '@guards/public-route.guard';
 import { privateRouteGuard } from '@guards/private-route.guard';
+import {publicRoutes} from "../public-routes/public-routes";
+import {privateRoutes} from "../private-routes/private-routes";
+import {ScheduleResolverService} from "../../core/resolvers/schedule-resolver.service";
+import {ScheduleService} from "@entities/schedule/services/schedule.service";
+import {HttpClientAdapterModule} from "@adapters/http-client/http-client-adapter";
+import {AuthService} from "@entities/auth/services/auth.service";
+import {MessageService} from "@services/message/message.service";
 
 @NgModule({
     declarations: [],
@@ -13,17 +18,24 @@ import { privateRouteGuard } from '@guards/private-route.guard';
         RouterModule.forChild([
             {
                 path: RouteEnum.EMPTY,
-                component: PublicRoutesComponent,
-                loadChildren: () => import('../public-routes/public-routes.module').then(m => m.PublicRoutesModule),
-                canActivateChild: [publicRouteGuard]
+                loadComponent: () => import('../public-routes/public-routes.component').then(m => m.PublicRoutesComponent),
+                canActivateChild: [publicRouteGuard],
+                children: publicRoutes,
             },
             {
                 path: RouteEnum.EMPTY,
-                component: PrivateRoutesComponent,
-                loadChildren: () => import('../private-routes/private-routes.module').then(m => m.PrivateRoutesModule),
-                canActivateChild: [privateRouteGuard]
+                loadComponent: () => import('../private-routes/private-routes.component').then(m => m.PrivateRoutesComponent),
+                canActivateChild: [privateRouteGuard],
+                children: privateRoutes
             }
-        ])
+        ]),
+      HttpClientAdapterModule
     ],
+  providers: [
+    ScheduleService,
+    ScheduleResolverService,
+    AuthService,
+    MessageService
+  ]
 })
 export class MainRouteModule { }
