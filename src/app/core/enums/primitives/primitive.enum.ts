@@ -1,5 +1,6 @@
 export enum Primitive {
-    SIGN = '/sign',
+    REGISTER = '/register',
     SCHEDULE = '/schedule',
-    REGISTER = '/register'
+    SIGN = '/sign',
+    PATIENT = '/patient'
 }

@@ -3,6 +3,8 @@ import { HomeComponent } from '@features/home/home.component';
 import {Routes} from "@angular/router";
 import {ConfigurationComponent} from "@features/configuration/configuration.component";
 import {ScheduleResolverService} from "../../core/resolvers/schedule-resolver.service";
+import {PatientAppointmentComponent} from "@features/patient-appointment/patient-appointment.component";
+import {PatientResolverService} from "../../core/resolvers/patient-resolver.service";
 
 export const privateRoutes: Routes = [
   {
@@ -17,6 +19,19 @@ export const privateRoutes: Routes = [
       schedule: ScheduleResolverService
     },
     loadComponent: () => HomeComponent,
+  },
+  {
+    path: RouteEnum.PATIENT_APPOINTMENT,
+    title: "Patient Appointment",
+    children: [
+      {
+        path: ":id",
+        resolve: {
+          // patient: PatientResolverService
+        },
+        loadComponent: () => PatientAppointmentComponent
+      }
+    ]
   },
   {
     path: RouteEnum.CONFIG,

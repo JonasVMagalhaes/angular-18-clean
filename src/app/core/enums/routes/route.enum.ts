@@ -1,11 +1,12 @@
 export enum RouteEnum {
     EMPTY = '',
+    CONFIG = 'configuration',
+    HOME = 'home',
     LOGIN = 'login',
-    REGISTER = 'register',
-    REGISTER_GAME = 'register-game',
+    PATIENT = 'patient',
+    PATIENT_APPOINTMENT = 'patient-appointment',
     RECOVERY_PASSWORD = 'recovery-password',
+    REGISTER = 'register',
     RESET_PASSWORD = 'reset-password',
     SCHEDULE = 'schedule',
-    HOME = 'home',
-    CONFIG = 'configuration',
 }

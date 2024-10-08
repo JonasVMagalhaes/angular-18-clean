@@ -2,6 +2,7 @@ import {provideHttpClient, withFetch, withInterceptors} from "@angular/common/ht
 import {deviceHeaderConfigInterceptor} from "@interceptors/device-header/device-header-config.interceptor";
 import {authInterceptor} from "@interceptors/auth/auth-interceptor";
 import {EnvironmentProviders} from "@angular/core";
+import {urlInterceptor} from "@interceptors/url/url-interceptor";
 
 export class ProvideHttpClient {
   static getConfig(): EnvironmentProviders {
@@ -9,7 +10,8 @@ export class ProvideHttpClient {
       withFetch(),
       withInterceptors([
         deviceHeaderConfigInterceptor,
-        authInterceptor
+        authInterceptor,
+        urlInterceptor
       ])
     )
   }

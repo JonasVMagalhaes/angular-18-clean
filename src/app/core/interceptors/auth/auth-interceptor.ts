@@ -1,14 +1,15 @@
-import {HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest, HttpResponse} from "@angular/common/http";
-import { inject } from "@angular/core";
-import { Auth } from "@entities/auth/dtos/auth";
-import { KeysCacheEnum } from "@enums/keys/keys-cache.enum";
-import { Primitive } from "@enums/primitives/primitive.enum";
+import {HttpEvent, HttpHandlerFn, HttpRequest} from "@angular/common/http";
+import {inject} from "@angular/core";
+import {Auth} from "@entities/auth/dtos/auth";
+import {KeysCacheEnum} from "@enums/keys/keys-cache.enum";
+import {Primitive} from "@enums/primitives/primitive.enum";
 
-import { CacheService } from "@services/cache/cache.service";
+import {CacheService} from "@services/cache/cache.service";
 import {Observable, of, switchMap, tap} from "rxjs";
 
 const authenticatedPrimitives: Primitive[] = [
-  Primitive.SCHEDULE
+  Primitive.SCHEDULE,
+  Primitive.PATIENT
 ];
 
 function getRequestAuthenticated(request: HttpRequest<unknown>, auth_token: Auth): HttpRequest<unknown> {
@@ -26,10 +27,6 @@ export function authInterceptor(originalRequest: HttpRequest<unknown>, next: Htt
     return of(originalRequest)
       .pipe(
         tap((request: HttpRequest<unknown>) => getRequestAuthenticated(request, auth_token)),
-        switchMap(next),
-        tap({
-          next: (response: HttpEvent<unknown>) => response,
-          error: (response: HttpErrorResponse) =>  response
-        })
+        switchMap(next)
       )
 }

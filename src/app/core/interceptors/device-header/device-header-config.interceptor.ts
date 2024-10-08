@@ -1,8 +1,8 @@
-import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest, HttpResponse } from "@angular/common/http";
+import { HttpEvent, HttpHandlerFn, HttpRequest } from "@angular/common/http";
 import { DeviceInfoEnum } from "@utils/device/device-info-enum";
 import { DeviceUtils } from "@utils/device/device-utils";
 
-import { Observable, tap } from "rxjs";
+import { Observable } from "rxjs";
 
 export function deviceHeaderConfigInterceptor(originalRequest: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
     const request: HttpRequest<unknown> = originalRequest.clone({
@@ -12,11 +12,6 @@ export function deviceHeaderConfigInterceptor(originalRequest: HttpRequest<unkno
             .set(DeviceInfoEnum.USER_AGENT, navigator.userAgent)
             .set(DeviceInfoEnum.PLATFORM, navigator.platform)
     });
-    
-    return next(request).pipe(
-        tap({
-            next: (response: HttpEvent<unknown>) => response,
-            error: (response: HttpErrorResponse) => response
-        })
-    );
+
+    return next(request);
   }
