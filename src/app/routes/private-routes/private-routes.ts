@@ -27,7 +27,7 @@ export const privateRoutes: Routes = [
       {
         path: ":id",
         resolve: {
-          // patient: PatientResolverService
+          patient: PatientResolverService
         },
         loadComponent: () => PatientAppointmentComponent
       }

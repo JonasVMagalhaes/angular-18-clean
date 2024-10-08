@@ -1,17 +1,10 @@
 import {HttpEvent, HttpHandlerFn, HttpRequest} from "@angular/common/http";
 
-import {map, Observable, of, switchMap, tap} from "rxjs";
+import {Observable} from "rxjs";
+import { environment } from "../../../../environments/environment";
 
-function configureURL(request: HttpRequest<unknown>): HttpRequest<unknown> {
-  return request.clone({
-    url: "http://localhost:3000" + request.url,
-  });
-}
-
-export function urlInterceptor(originalRequest: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-  return of(originalRequest)
-    .pipe(
-      map((request: HttpRequest<unknown>) => configureURL(request)),
-      switchMap(next)
-    )
+export function urlInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
+  return next(request.clone({
+    url: environment.apiUrl + request.url,
+  }));
 }

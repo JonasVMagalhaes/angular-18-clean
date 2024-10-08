@@ -5,7 +5,7 @@ import {KeysCacheEnum} from "@enums/keys/keys-cache.enum";
 import {Primitive} from "@enums/primitives/primitive.enum";
 
 import {CacheService} from "@services/cache/cache.service";
-import {Observable, of, switchMap, tap} from "rxjs";
+import {map, Observable, of, switchMap} from "rxjs";
 
 const authenticatedPrimitives: Primitive[] = [
   Primitive.SCHEDULE,
@@ -26,7 +26,7 @@ export function authInterceptor(originalRequest: HttpRequest<unknown>, next: Htt
 
     return of(originalRequest)
       .pipe(
-        tap((request: HttpRequest<unknown>) => getRequestAuthenticated(request, auth_token)),
+        map((request: HttpRequest<unknown>) => getRequestAuthenticated(request, auth_token)),
         switchMap(next)
       )
 }
