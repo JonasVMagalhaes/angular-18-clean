@@ -1,0 +1,10 @@
+@use "variables";
+
+.avatar {
+  aspect-ratio: variables.$aspect-ratio-square;
+  border-radius: variables.$border-radius-circle;
+  object-fit: cover;
+  overflow: hidden;
+  width: 100%;
+  border: variables.$border-thin solid variables.$color-gray-light;
+}

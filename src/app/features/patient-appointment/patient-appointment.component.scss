@@ -1,0 +1,15 @@
+@use "variables";
+
+.container {
+  @include variables.display-flex-column(stretch, center);
+  padding: variables.$size-16;
+
+  .app-avatar {
+    display: block;
+    width: 40%;
+  }
+
+  .app-patient-name {
+    margin: variables.$size-16;
+  }
+}

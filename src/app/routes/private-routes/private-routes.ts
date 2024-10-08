@@ -22,7 +22,7 @@ export const privateRoutes: Routes = [
   },
   {
     path: RouteEnum.PATIENT_APPOINTMENT,
-    title: "Patient Appointment",
+    title: "Patient",
     children: [
       {
         path: ":id",

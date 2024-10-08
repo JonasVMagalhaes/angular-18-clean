@@ -9,6 +9,6 @@ export class TemplatePageTitleStrategy extends TitleStrategy {
   }
   override updateTitle(routerState: RouterStateSnapshot) {
     const title: string | undefined = this.buildTitle(routerState);
-    this.title.setTitle(`My Application | ${title}`);
+    this.title.setTitle(`${title}`);
   }
 }
