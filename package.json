@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:homolog": "ng build --configuration homolog --aot",
+    "build:prod": "ng build --configuration production --aot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:boleiros-android": "node dist/boleiros-android/server/server.mjs"
