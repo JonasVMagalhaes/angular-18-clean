@@ -1,6 +1,6 @@
 @mixin triangle($direction, $size: 12px) {
   @if type-of($size) != number or $size == 0 {
-    @error "Invalid size number";
+    @error "Invalid size number to triangle";
   }
 
   $half-size: $size / 2;
@@ -28,7 +28,7 @@
 
 @mixin smooth-triangle($direction, $size: 12px, $border-radius: 2px) {
   @if type-of($size) != number or $size == 0 {
-    @error "Invalid size number";
+    @error "Invalid size number to smooth-triangle";
   }
 
   $half-size: $size / 2;

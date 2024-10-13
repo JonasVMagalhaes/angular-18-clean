@@ -20,18 +20,18 @@ export class HttpClientMock extends HttpClient {
             default: super.post(url, body, options);
         }
 
-        return of();
+        return super.post(url, body, options);
     }
 
     override get(url: string): Observable<any> {
       console.log(url)
       switch(url) {
-        case Primitive.SCHEDULE: return MockPrimitives.getSchedule();
+        // case Primitive.SCHEDULE: return MockPrimitives.getSchedule();
         case Primitive.PATIENT: return MockPrimitives.getPatient();
         default: super.get(url);
       }
 
-      return of({});
+      return super.get(url);
     }
 }
 
@@ -104,7 +104,8 @@ class MockPrimitives {
         id: "123",
         personalName: "João Gabriel",
         nickName: "Biel",
-        birthDate: "17/12/2021"
+        birthDate: "17/12/2021",
+        image: ""
       })
     }
 }

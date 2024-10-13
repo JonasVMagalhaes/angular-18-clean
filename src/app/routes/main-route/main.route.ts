@@ -11,6 +11,7 @@ import {ScheduleService} from "@entities/schedule/services/schedule.service";
 import {AuthService} from "@entities/auth/services/auth.service";
 import {MessageService} from "@services/message/message.service";
 import {PatientResolverService} from "../../core/resolvers/patient-resolver.service";
+import {HttpClientAdapterModule} from "@adapters/http-client/http-client-adapter";
 
 @NgModule({
     declarations: [],
@@ -28,7 +29,8 @@ import {PatientResolverService} from "../../core/resolvers/patient-resolver.serv
                 canActivateChild: [privateRouteGuard],
                 children: privateRoutes
             }
-        ])
+        ]),
+      HttpClientAdapterModule
     ],
   providers: [
     ScheduleService,
