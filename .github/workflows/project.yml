@@ -19,9 +19,13 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm ci
       - name: Run tests
         run: npm run test
         if: ${{ steps.run_tests.outputs.test_passed == 'false' }}
@@ -35,4 +39,4 @@ jobs:
           node-version: 20
       - run: npm ci
       - name: Format code with Prettier
-        run: npx prettier --check --verbose
+        run: npx prettier --check --verbose .
