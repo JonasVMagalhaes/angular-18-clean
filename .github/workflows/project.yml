@@ -39,4 +39,4 @@ jobs:
           node-version: 20
       - run: npm ci
       - name: Format code with Prettier
-        run: npx prettier --check --verbose .
+        run: npx prettier --check .
