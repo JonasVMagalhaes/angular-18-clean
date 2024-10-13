@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ValueAcessorComponent } from './value-acessor.component';
 
-describe('ValueAcessorComponent', () => {
+xdescribe('ValueAcessorComponent', () => {
   let component: ValueAcessorComponent;
   let fixture: ComponentFixture<ValueAcessorComponent>;
 

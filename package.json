@@ -9,6 +9,7 @@
     "build:prod": "ng build --configuration production --aot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:dev": "ng test --watch --code-coverage",
     "serve:ssr:boleiros-android": "node dist/boleiros-android/server/server.mjs"
   },
   "private": true,

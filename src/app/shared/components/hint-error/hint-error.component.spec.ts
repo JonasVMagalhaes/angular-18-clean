@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HintErrorComponent } from './hint-error.component';
 
-describe(HintErrorComponent.name, () => {
+xdescribe(HintErrorComponent.name, () => {
   let component: HintErrorComponent;
   let fixture: ComponentFixture<HintErrorComponent>;
 

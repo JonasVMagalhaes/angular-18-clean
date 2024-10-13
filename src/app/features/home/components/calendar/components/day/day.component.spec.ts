@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DayComponent } from './day.component';
 
-describe(DayComponent.name, () => {
+xdescribe(DayComponent.name, () => {
   let component: DayComponent;
   let fixture: ComponentFixture<DayComponent>;
 

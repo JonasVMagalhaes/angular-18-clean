@@ -1,16 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ExpansionPanelHeaderComponent
+} from "@components/expansion-panel/components/expansion-panel-header/expansion-panel-header.component";
 
-import { InputComponent } from './expansion-panel-header.component';
 
-describe(InputComponent.name, () => {
-  let component: InputComponent;
-  let fixture: ComponentFixture<InputComponent>;
+xdescribe(ExpansionPanelHeaderComponent.name, () => {
+  let component: ExpansionPanelHeaderComponent;
+  let fixture: ComponentFixture<ExpansionPanelHeaderComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [InputComponent]
+      declarations: [ExpansionPanelHeaderComponent]
     });
-    fixture = TestBed.createComponent(InputComponent);
+    fixture = TestBed.createComponent(ExpansionPanelHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

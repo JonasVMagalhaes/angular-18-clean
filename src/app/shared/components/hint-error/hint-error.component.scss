@@ -1,11 +1,11 @@
-@import '@assets/styles/variables.scss';
+@use 'variables';
 
 .hint-error-container {
     .message {
-        margin: $size-4 $size-0;
+        margin: variables.$size-4 variables.$size-0;
 
-        font-size: $font-size-hyper-small;
-        color: $error;
+        font-size: variables.$font-size-hyper-small;
+        color: variables.$color-error;
         line-height: normal;
     }
 }
