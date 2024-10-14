@@ -13,21 +13,21 @@ import { CustomValidators } from '@validators/validators';
   styleUrl: './reset-password.component.scss'
 })
 export class ResetPasswordComponent {
-  protected readonly RouteEnum = RouteEnum;
-  protected readonly resetPasswordFormGroup = new FormGroup({
-    password: new FormControl(null, [
-      Validators.required,
-      CustomValidators.passwordValidator
-    ]),
-    confirmPassword: new FormControl(null, [
-      Validators.required,
-      CustomValidators.confirmPasswordValidator('password')
-    ])
-  });
-
-  constructor(private readonly router: Router) {}
-
-  goTo(path: RouteEnum): void {
-    this.router.navigate([path]);
-  }
+  // protected readonly RouteEnum = RouteEnum;
+  // protected readonly resetPasswordFormGroup = new FormGroup({
+  //   password: new FormControl(null, [
+  //     Validators.required,
+  //     CustomValidators.passwordValidator
+  //   ]),
+  //   confirmPassword: new FormControl(null, [
+  //     Validators.required,
+  //     CustomValidators.confirmPasswordValidator('password')
+  //   ])
+  // });
+  //
+  // constructor(private readonly router: Router) {}
+  //
+  // goTo(path: RouteEnum): void {
+  //   this.router.navigate([path]);
+  // }
 }

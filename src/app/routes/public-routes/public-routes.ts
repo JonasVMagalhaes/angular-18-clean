@@ -9,7 +9,7 @@ import { ResetPasswordComponent } from '@features/reset-password/reset-password.
 export const publicRoutes: Routes = [
   {
     path: RouteEnum.EMPTY,
-    title: "Login",
+    title: 'Project name',
     pathMatch: 'full',
     loadComponent: () => LoginComponent,
   },
@@ -17,16 +17,19 @@ export const publicRoutes: Routes = [
     path: RouteEnum.LOGIN,
     redirectTo: RouteEnum.EMPTY,
   },
-  // {
-  //   path: RouteEnum.REGISTER,
-  //   component: RegisterComponent,
-  // },
-  // {
-  //   path: RouteEnum.RECOVERY_PASSWORD,
-  //   component: RecoveryPasswordComponent,
-  // },
-  // {
-  //   path: RouteEnum.RESET_PASSWORD,
-  //   component: ResetPasswordComponent,
-  // },
+  {
+    path: RouteEnum.REGISTER,
+    title: 'Register',
+    loadComponent: () => RegisterComponent,
+  },
+  {
+    path: RouteEnum.RECOVERY_PASSWORD,
+    title: 'Recovery Password',
+    loadComponent: () => RecoveryPasswordComponent,
+  },
+  {
+    path: RouteEnum.RESET_PASSWORD,
+    title: 'Reset Password',
+    loadComponent: () => ResetPasswordComponent,
+  }
 ];

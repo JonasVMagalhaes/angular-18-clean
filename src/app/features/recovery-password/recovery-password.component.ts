@@ -14,26 +14,26 @@ import { RecoveryPasswordForm } from './models/recovery-password-form.interface'
   styleUrl: './recovery-password.component.scss'
 })
 export class RecoveryPasswordComponent implements OnInit {
-  protected recoveryPasswordFormGroup: FormGroup<RecoveryPasswordForm>;
-  protected readonly RouteEnum = RouteEnum;
-  protected readonly RecoveryPasswordFormEnum = RecoveryPasswordFormEnum;
-
-  constructor(private readonly router: Router) {}
+  // protected recoveryPasswordFormGroup: FormGroup<RecoveryPasswordForm>;
+  // protected readonly RouteEnum = RouteEnum;
+  // protected readonly RecoveryPasswordFormEnum = RecoveryPasswordFormEnum;
+  //
+  // constructor(private readonly router: Router) {}
 
   ngOnInit(): void {
-    this.createFormGroup();
+  //   this.createFormGroup();
   }
 
-  goTo(path: RouteEnum): void {
-    this.router.navigate([path]);
-  }
-
-  private createFormGroup(): void {
-    this.recoveryPasswordFormGroup = new FormGroup<RecoveryPasswordForm>({
-      [RecoveryPasswordFormEnum.EMAIL]: new FormControl(null, [
-        Validators.required,
-        Validators.email
-      ])
-    });
-  }
+  // goTo(path: RouteEnum): void {
+  //   this.router.navigate([path]);
+  // }
+  //
+  // private createFormGroup(): void {
+  //   this.recoveryPasswordFormGroup = new FormGroup<RecoveryPasswordForm>({
+  //     [RecoveryPasswordFormEnum.EMAIL]: new FormControl(null, [
+  //       Validators.required,
+  //       Validators.email
+  //     ])
+  //   });
+  // }
 }

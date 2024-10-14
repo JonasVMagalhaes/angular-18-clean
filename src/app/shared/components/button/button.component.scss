@@ -1,14 +1,15 @@
 @use 'variables';
 
 .app-button {
-    cursor: pointer;
-    background-Color: white;
-    transition-duration: 0.2s;
-    box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 1px;
-    border: none;
-    border-radius: variables.$border-radius-soft-8;
-    letter-spacing: 0.06em;
-    font-weight: 600;
-    padding: variables.$size-12;
-    width: 100%;
+  @include variables.cursor-pointer;
+  @include variables.full-width;
+
+  background-Color: variables.$color-white;
+  transition-duration: variables.$transition-hyper-fast;
+  box-shadow: rgba(0, 0, 0, 0.2) variables.$size-4 variables.$size-4 variables.$size-1;
+  border: none;
+  border-radius: variables.$border-radius-soft-8;
+  letter-spacing: 0.06em;
+  font-weight: variables.$font-weight-bold;
+  padding: variables.$size-12;
 }
