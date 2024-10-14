@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ValueAcessorComponent } from './value-acessor.component';
+import { ValueAccessorComponent } from './value-accessor.component';
 
 xdescribe('ValueAcessorComponent', () => {
-  let component: ValueAcessorComponent;
-  let fixture: ComponentFixture<ValueAcessorComponent>;
+  let component: ValueAccessorComponent;
+  let fixture: ComponentFixture<ValueAccessorComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ValueAcessorComponent]
+      declarations: [ValueAccessorComponent]
     });
-    fixture = TestBed.createComponent(ValueAcessorComponent);
+    fixture = TestBed.createComponent(ValueAccessorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

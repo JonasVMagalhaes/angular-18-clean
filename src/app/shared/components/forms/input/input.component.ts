@@ -1,7 +1,7 @@
 import { Component, Input, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 
-import { ValueAcessorComponent } from '../value-acessor/value-acessor.component';
+import { ValueAccessorComponent } from '@components/forms/value-accessor/value-accessor.component';
 import { InputType } from './models/input-type.interface';
 import {InputMaskDirective} from "@components/forms/input/directives/input-mask.directive";
 
@@ -22,7 +22,7 @@ import {InputMaskDirective} from "@components/forms/input/directives/input-mask.
     }
   ]
 })
-export class InputComponent extends ValueAcessorComponent {
+export class InputComponent extends ValueAccessorComponent {
   @Input({ required: true }) id: string;
   @Input({ required: true }) label: string;
   @Input() mask: string;

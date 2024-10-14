@@ -1,7 +1,7 @@
 import { Component, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { ValueAcessorComponent } from '../value-acessor/value-acessor.component';
+import { ValueAccessorComponent } from '@components/forms/value-accessor/value-accessor.component';
 
 @Component({
   selector: 'app-checkbox',
@@ -16,7 +16,7 @@ import { ValueAcessorComponent } from '../value-acessor/value-acessor.component'
     }
   ]
 })
-export class CheckBoxComponent extends ValueAcessorComponent {
+export class CheckBoxComponent extends ValueAccessorComponent {
   public setValue(event: Event): void {
     this.updateValue((event.target as HTMLInputElement).checked);
   }

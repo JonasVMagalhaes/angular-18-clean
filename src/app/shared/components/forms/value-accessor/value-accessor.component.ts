@@ -1,21 +1,21 @@
 import { Component, forwardRef } from '@angular/core';
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ValueAcessorImpl } from '../models/value-acessor/value-acessor.impl';
+import {ValueAccessorImpl} from "@components/forms/models/value-accessor/value-accessor.impl";
 
 @Component({
-  selector: 'value-acessor',
+  selector: 'value-accessor',
   template: '',
   standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ValueAcessorComponent),
+      useExisting: forwardRef(() => ValueAccessorComponent),
       multi: true
     }
   ]
 })
-export class ValueAcessorComponent implements ControlValueAccessor, ValueAcessorImpl {
+export class ValueAccessorComponent implements ControlValueAccessor, ValueAccessorImpl {
   value: any;
   onChange: Function = () => {};
   onTouched: Function = () => {};

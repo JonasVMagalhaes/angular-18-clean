@@ -1,4 +1,4 @@
-export abstract class ValueAcessorImpl {
+export abstract class ValueAccessorImpl {
     abstract value: string;
     abstract onChange: Function;
     abstract onTouched: Function;
