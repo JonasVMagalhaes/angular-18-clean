@@ -24,9 +24,8 @@ export class HttpClientMock extends HttpClient {
     }
 
     override get(url: string): Observable<any> {
-      console.log(url)
       switch(url) {
-        // case Primitive.SCHEDULE: return MockPrimitives.getSchedule();
+        case Primitive.SCHEDULE: return MockPrimitives.getSchedule();
         case Primitive.PATIENT: return MockPrimitives.getPatient();
         default: super.get(url);
       }

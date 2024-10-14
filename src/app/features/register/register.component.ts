@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { RouteEnum } from '@enums/routes/route.enum';
 import { MessageService } from '@services/message/message.service';
 import { RegisterForm } from './models/register-form.interface';
-import { RegisterService } from '@entities/register/services/register.service';
 import { filter, of } from 'rxjs';
 import { RegisterFormEnum } from '@enums/forms/register-form.enum';
 import { RegisterValidatorsErrors } from './validators-errors/register-validators-errors';
@@ -25,8 +24,7 @@ export class RegisterComponent implements OnInit {
   protected readonly INPUT_TYPE = InputType;
 
   constructor(private readonly router: Router,
-              private readonly messageService: MessageService,
-              private readonly registerService: RegisterService
+              private readonly messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -41,18 +39,11 @@ export class RegisterComponent implements OnInit {
     of(this.registerFormGroup)
       .pipe(
         filter(() => this.isFormValid()))
-      .subscribe(() => this.performRegister());    
+      .subscribe(() => this.performRegister());
   }
-  
+
   private performRegister() {
-    this.registerService.register(this.registerFormGroup)
-    .subscribe({
-      next: () => {
-        this.messageService.toast('Usuário criado com sucesso');
-        this.router.navigate([RouteEnum.HOME]);
-      },
-      error: (err: Error) => this.messageService.toast(err.message)
-    });
+
   }
 
   private createFormGroup(): void {
