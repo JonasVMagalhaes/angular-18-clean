@@ -4,7 +4,7 @@ export enum MonthChangeEvent {
   PREVIOUS = 'previous',
   NEXT = 'next',
   CURRENT = 'current'
-};
+}
 
 export class MonthChange {
   event: MonthChangeEvent;
