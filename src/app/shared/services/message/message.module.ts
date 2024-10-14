@@ -9,6 +9,7 @@ import {
 import { MessageService } from './message.service';
 import { MessageSnackbarService } from './message-snackbar.service';
 import { MessageComponent } from './message.component';
+import {MatButton} from "@angular/material/button";
 
 @NgModule({
     declarations: [MessageComponent],
@@ -16,7 +17,8 @@ import { MessageComponent } from './message.component';
         MatSnackBarModule,
         MatSnackBarLabel,
         MatSnackBarActions,
-        MatSnackBarAction
+        MatSnackBarAction,
+        MatButton
     ],
     providers: [
         MessageService,

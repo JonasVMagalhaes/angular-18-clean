@@ -12,13 +12,11 @@ export class EncryptionService {
   constructor() { }
 
   encrypt(value: string): string {
-    const encryptedToken = CryptoJS.AES.encrypt(value, this.secretKey).toString();
-    return encryptedToken;
+    return CryptoJS.AES.encrypt(value, this.secretKey).toString();
   }
 
   decrypt(encryptedvalue: string): string {
-    const decryptedBytes = CryptoJS.AES.decrypt(encryptedvalue, this.secretKey);
-    const decryptedToken = decryptedBytes.toString(CryptoJS.enc.Utf8);
-    return decryptedToken;
+    const decryptedBytes: CryptoJS.lib.WordArray = CryptoJS.AES.decrypt(encryptedvalue, this.secretKey);
+    return decryptedBytes.toString(CryptoJS.enc.Utf8);
   }
 }

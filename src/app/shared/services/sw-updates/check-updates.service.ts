@@ -1,7 +1,7 @@
 import { ApplicationRef, Injectable } from '@angular/core';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
 
-import { first, interval, concat } from 'rxjs';
+import {first, interval, concat, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +21,11 @@ export class CheckUpdatesService {
         }
       });
 
-      const appIsStable$ = this.appRef.isStable.pipe(first(isStable => isStable === true));
-      const every1Hour$ = interval(60 * 60 * 1000);
-      const checkUpdateVersion$ = concat(appIsStable$, every1Hour$);
+      const appIsStable$: Observable<boolean> = this.appRef.isStable.pipe(first(Boolean));
+      const every1Hour$: Observable<number> = interval(60 * 60 * 1000);
+      const checkUpdateVersion$: Observable<unknown> = concat(appIsStable$, every1Hour$);
 
       checkUpdateVersion$.subscribe(() => this.updates.checkForUpdate());
-    } 
+    }
   }
 }
