@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
+import { MatList } from "@angular/material/list";
 
-import { PatientListItemComponent } from "@features/home/components/patient/list-patient-item/patient-list-item.component";
-import {MatList} from "@angular/material/list";
+import { PatientListItemComponent } from "@features/schedule/components/patient/list-patient-item/patient-list-item.component";
 
 @Component({
   selector: 'app-patient-list',

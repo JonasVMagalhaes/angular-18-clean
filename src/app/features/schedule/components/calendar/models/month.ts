@@ -1,5 +1,6 @@
-import {MonthChangeEvent} from "@features/home/components/calendar/models/month-change-event.interface";
-import {Moment} from "moment/moment";
+import { Moment } from "moment/moment";
+
+import { MonthChangeEvent } from "@features/schedule/components/calendar/models/month-change-event.interface";
 
 export class Month {
   value: Moment;

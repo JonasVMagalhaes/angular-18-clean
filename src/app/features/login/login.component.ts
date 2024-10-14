@@ -10,6 +10,7 @@ import { LoginFormEnum } from '@enums/forms/login-form.enum';
 import { RouteEnum } from '@enums/routes/route.enum';
 import { MessageService } from '@services/message/message.service';
 import { CustomValidators } from '@validators/validators';
+import {ButtonPriority} from "@components/button/models/button-priority.enum";
 
 @Component({
   selector: 'app-login',
@@ -63,4 +64,6 @@ export class LoginComponent implements OnInit {
       ]),
     });
   }
+
+  protected readonly ButtonPriority = ButtonPriority;
 }
