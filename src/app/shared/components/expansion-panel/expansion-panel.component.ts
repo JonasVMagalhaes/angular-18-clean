@@ -7,6 +7,7 @@ import {
 import {
   ExpansionPanelDescriptionComponent
 } from "@components/expansion-panel/components/expansion-panel-body/expansion-panel-description.component";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-expansion-panel',
@@ -14,7 +15,8 @@ import {
   standalone: true,
   imports: [
     ExpansionPanelHeaderComponent,
-    ExpansionPanelDescriptionComponent
+    ExpansionPanelDescriptionComponent,
+    NgIf
   ],
   styleUrls: ['./expansion-panel.component.scss'],
   animations: [OpenCloseExpansionPanelAnimation.get()]

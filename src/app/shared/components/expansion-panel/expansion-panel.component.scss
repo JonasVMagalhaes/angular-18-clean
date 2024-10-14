@@ -1,10 +1,12 @@
+@use 'variables';
+
 .container {
     .header {
-        cursor: pointer;
-        box-sizing: border-box;
+      @include variables.cursor-pointer;
+      @include variables.box-sizing-border;
     }
 
     .body {
-        box-sizing: border-box;
+      @include variables.box-sizing-border;
     }
 }
