@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core'
 
 import moment, {Moment} from "moment";
 
-import {MonthComponent} from "./components/month-and-year/month.component";
-import {DaysComponent} from "@features/home/components/calendar/components/days/days.component";
-import {Month} from "@features/home/components/calendar/models/month";
-import {MonthChangeEvent} from "@features/home/components/calendar/models/month-change-event.interface";
+import { MonthComponent } from "./components/month-and-year/month.component";
+import { DaysComponent } from "@features/schedule/components/calendar/components/days/days.component";
+import { Month } from "@features/schedule/components/calendar/models/month";
+import { MonthChangeEvent } from "@features/schedule/components/calendar/models/month-change-event.interface";
 
 @Component({
   selector: 'app-schedule',

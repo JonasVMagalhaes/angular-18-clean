@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, Output, WritableSignal} from '@angular/core';
-import {MatIconModule} from "@angular/material/icon";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatIconModule } from "@angular/material/icon";
 
-import {Month} from "@features/home/components/calendar/models/month";
-import {MonthChangeEvent} from "@features/home/components/calendar/models/month-change-event.interface";
 import moment from "moment";
+
+import { Month } from "@features/schedule/components/calendar/models/month";
+import { MonthChangeEvent } from '@features/schedule/components/calendar/models/month-change-event.interface';
 
 @Component({
   selector: 'app-month-and-year',

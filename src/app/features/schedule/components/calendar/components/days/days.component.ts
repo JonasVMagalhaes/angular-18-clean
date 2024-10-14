@@ -1,14 +1,14 @@
-import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 
 import moment from "moment/moment";
 
-import {Month} from "@features/home/components/calendar/models/month";
-import {MonthChangeEvent} from "@features/home/components/calendar/models/month-change-event.interface";
-import {DayComponent} from "@features/home/components/calendar/components/day/day.component";
-import {Day} from "@features/home/components/calendar/models/day";
-import {UUID} from "@utils/uuid/uuid-utils";
-import {DateUtils} from "@utils/date/date-utils";
-import {Scroll} from "@utils/scroller/scroller-utils";
+import { UUID } from "@utils/uuid/uuid-utils";
+import { DateUtils } from "@utils/date/date-utils";
+import { Scroll } from "@utils/scroller/scroller-utils";
+import { DayComponent } from "@features/schedule/components/calendar/components/day/day.component";
+import { Month } from "@features/schedule/components/calendar/models/month";
+import { Day } from "@features/schedule/components/calendar/models/day";
+import { MonthChangeEvent } from "@features/schedule/components/calendar/models/month-change-event.interface";
 
 
 @Component({

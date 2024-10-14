@@ -1,10 +1,11 @@
+import { Routes } from "@angular/router";
+
 import { RouteEnum } from '@enums/routes/route.enum';
-import { HomeComponent } from '@features/home/home.component';
-import {Routes} from "@angular/router";
-import {ConfigurationComponent} from "@features/configuration/configuration.component";
-import {ScheduleResolverService} from "../../core/resolvers/schedule-resolver.service";
-import {PatientAppointmentComponent} from "@features/patient-appointment/patient-appointment.component";
-import {PatientResolverService} from "../../core/resolvers/patient-resolver.service";
+import { ConfigurationComponent } from "@features/configuration/configuration.component";
+import { ScheduleResolverService } from "../../core/resolvers/schedule-resolver.service";
+import { PatientAppointmentComponent } from "@features/patient-appointment/patient-appointment.component";
+import { PatientResolverService } from "../../core/resolvers/patient-resolver.service";
+import { ScheduleFeatureComponent } from "@features/schedule/schedule.component";
 
 export const privateRoutes: Routes = [
   {
@@ -18,7 +19,7 @@ export const privateRoutes: Routes = [
     resolve: {
       schedule: ScheduleResolverService
     },
-    loadComponent: () => HomeComponent,
+    loadComponent: () => ScheduleFeatureComponent,
   },
   {
     path: RouteEnum.PATIENT_APPOINTMENT,

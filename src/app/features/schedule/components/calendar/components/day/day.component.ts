@@ -1,7 +1,9 @@
 import {Component, Input} from '@angular/core';
-import moment from "moment";
-import {Day} from "@features/home/components/calendar/models/day";
 import {NgClass} from "@angular/common";
+
+import moment from "moment";
+
+import {Day} from "@features/schedule/components/calendar/models/day";
 
 @Component({
   selector: 'app-day',
