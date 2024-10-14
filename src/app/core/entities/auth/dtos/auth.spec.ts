@@ -6,15 +6,15 @@ import {PrimitiveSignInRequest} from "@models/primitives/sign-in/sign-in-request
 describe(Auth.name, () => {
   describe('constructor', () => {
     it('Must be instanciate constructor', () => {
-      const signResponse: PrimitiveSignInResponse = {
+      const authResponse: PrimitiveSignInResponse = {
         access_token: 'access_token',
         expires_in: 3600,
       }
 
-      const auth: Auth = new Auth(signResponse);
+      const auth: Auth = new Auth(authResponse);
 
-      expect(auth.accessToken).toBe(signResponse.access_token);
-      expect(auth.expireTime).toBe(signResponse.expires_in);
+      expect(auth.accessToken).toBe(authResponse.access_token);
+      expect(auth.expireTime).toBe(authResponse.expires_in);
     });
   });
 
