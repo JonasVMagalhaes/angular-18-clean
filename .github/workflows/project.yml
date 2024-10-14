@@ -27,7 +27,7 @@ jobs:
           node-version: 20
       - run: npm ci
       - name: Format code with Lint
-        run: npm run lint .
+        run: npm run lint
 
   test:
     runs-on: ubuntu-latest
