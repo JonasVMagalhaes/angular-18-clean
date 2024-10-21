@@ -7,10 +7,7 @@ import {Primitive} from "@enums/primitives/primitive.enum";
 import {CacheService} from "@services/cache/cache.service";
 import {map, Observable, of, switchMap} from "rxjs";
 
-const authenticatedPrimitives: Primitive[] = [
-  Primitive.SCHEDULE,
-  Primitive.PATIENT
-];
+const authenticatedPrimitives: Primitive[] = [];
 
 function getRequestAuthenticated(request: HttpRequest<unknown>, auth_token: Auth): HttpRequest<unknown> {
   return authenticatedPrimitives.includes(request.url as Primitive) ?

@@ -8,8 +8,6 @@ import { PrimitiveRegisterResponse } from "@models/primitives/register/register-
 import { PrimitiveSignInResponse } from "@models/primitives/sign-in/sign-in-response.interface";
 import { ErrorRequisition } from "@models/requisitions/error-requisition";
 import { Observable, of, throwError } from "rxjs";
-import {PrimitiveScheduleResponse} from "@models/primitives/schedule/schedule-response.interface";
-import {PrimitivePatientResponse} from "@models/primitives/patient/patient-response.interface";
 
 @Injectable()
 export class HttpClientMock extends HttpClient {
@@ -25,8 +23,6 @@ export class HttpClientMock extends HttpClient {
 
     override get(url: string): Observable<any> {
       switch(url) {
-        case Primitive.SCHEDULE: return MockPrimitives.getSchedule();
-        case Primitive.PATIENT: return MockPrimitives.getPatient();
         default: super.get(url);
       }
 
@@ -91,20 +87,5 @@ class MockPrimitives {
         } else {
             return throwError(() => errorUnauthorized);
         }
-    }
-
-    static getSchedule(): Observable<PrimitiveScheduleResponse> {
-      console.log('Schedule')
-      return of({});
-    }
-
-    static getPatient(): Observable<PrimitivePatientResponse> {
-      return of({
-        id: "123",
-        personalName: "João Gabriel",
-        nickName: "Biel",
-        birthDate: "17/12/2021",
-        image: ""
-      })
     }
 }

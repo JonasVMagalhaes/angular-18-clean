@@ -6,11 +6,8 @@ import { publicRouteGuard } from '@guards/public-route.guard';
 import { privateRouteGuard } from '@guards/private-route.guard';
 import {publicRoutes} from "../public-routes/public-routes";
 import {privateRoutes} from "../private-routes/private-routes";
-import {ScheduleResolverService} from "../../core/resolvers/schedule-resolver.service";
-import {ScheduleService} from "@entities/schedule/services/schedule.service";
 import {AuthService} from "@entities/auth/services/auth.service";
 import {MessageService} from "@services/message/message.service";
-import {PatientResolverService} from "../../core/resolvers/patient-resolver.service";
 import {HttpClientAdapterModule} from "@adapters/http-client/http-client-adapter";
 
 @NgModule({
@@ -33,9 +30,6 @@ import {HttpClientAdapterModule} from "@adapters/http-client/http-client-adapter
       HttpClientAdapterModule
     ],
   providers: [
-    ScheduleService,
-    ScheduleResolverService,
-    PatientResolverService,
     AuthService,
     MessageService
   ]
