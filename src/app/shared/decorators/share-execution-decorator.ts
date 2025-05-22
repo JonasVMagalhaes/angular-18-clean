@@ -1,45 +1,51 @@
 import { Observable, from } from 'rxjs';
 import { finalize, shareReplay } from 'rxjs/operators';
 
+interface ExecutionState {
+  sharedResult: Observable<unknown> | Promise<unknown> | null;
+}
+
+/**
+ * @returns Decorator para compartilhar a execução de um método que retorna um Observable ou Promise.
+ * Se o método já estiver em execução, retorna o resultado compartilhado.
+ */
 export function ShareExecution() {
   return function (
-    target: any,
-    propertyKey: string,
+    _target: any,
+    _propertyKey: string,
     descriptor: PropertyDescriptor
   ) {
     const originalMethod = descriptor.value;
-    let isExecuting = false;
-    let sharedResult: Observable<any> | Promise<any> | null = null;
+    const instancesMethod = new Map<string, ExecutionState>();
 
     descriptor.value = function (...args: any[]) {
-      if (isExecuting) {
-        return sharedResult;
+      const keyInstance = args.toString();
+      const instance = instancesMethod.get(keyInstance);
+      if(instance) {
+        return instance.sharedResult;
       }
 
-      const result = originalMethod.apply(this, args);
+      const clonedMethod = originalMethod.apply(this, args);
+      if (clonedMethod instanceof Observable) {
+        instancesMethod.set(keyInstance, {
+          sharedResult: clonedMethod.pipe(
+            finalize(() => instancesMethod.delete(keyInstance)),
+            shareReplay(1)
+          )
+        });
 
-      if (result instanceof Observable) {
-        isExecuting = true;
-        sharedResult = result.pipe(
-          finalize(() => {
-            isExecuting = false;
-            sharedResult = null;
-          }),
-          shareReplay(1) // Compartilha o resultado da execução
-        );
-        return sharedResult;
-      } else if (result instanceof Promise) {
-        isExecuting = true;
-        sharedResult = from(result).pipe(
-          finalize(() => {
-            isExecuting = false;
-            sharedResult = null;
-          }),
-          shareReplay(1)
-        ).toPromise();
-        return sharedResult;
+        return instancesMethod.get(keyInstance).sharedResult;
+      } else if (clonedMethod instanceof Promise) {
+        instancesMethod.set(keyInstance, {
+          sharedResult: from(clonedMethod).pipe(
+            finalize(() => instancesMethod.delete(keyInstance)),
+            shareReplay(1)
+          ).toPromise()
+        });
+        return instancesMethod.get(keyInstance).sharedResult;
       } else {
-        return result;
+        console.error("Method must return an Observable or Promise");
+        return clonedMethod;
       }
     };
 
