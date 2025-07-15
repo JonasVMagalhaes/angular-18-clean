@@ -9,6 +9,7 @@ Este documento descreve os decorators utilitários disponíveis no projeto e com
   - [ShareReplay](#sharereplay)
   - [ShareExecution](#shareexecution)
   - [BlockUntilComplete](#blockuntilcomplete)
+  - [LocalStorageCache](#localstoragecache)
 - [Tratamento de Erros](#tratamento-de-erros)
   - [ErrorHandling](#errorhandling)
   - [WithFallback](#withfallback)
@@ -16,8 +17,16 @@ Este documento descreve os decorators utilitários disponíveis no projeto e com
 - [Performance](#performance)
   - [Throttle](#throttle)
   - [Debounce](#debounce)
+  - [DebouncedMethod](#debouncedmethod)
   - [Measure](#measure)
 - [Logging](#logging)
+- [UI e Interações](#ui-e-interações)
+  - [ObservableWithProgress](#observablewithprogress)
+  - [FormStateTracking](#formstatetracking)
+- [Internacionalização](#internacionalização)
+  - [I18nSupport](#i18nsupport)
+- [Feature Flags](#feature-flags)
+  - [FeatureToggle](#featuretoggle)
   - [Log](#log)
 - [Combinando Decorators](#combinando-decorators)
 
@@ -557,6 +566,448 @@ export class DashboardService {
   })
   fetchDashboardData(): Observable<DashboardData> {
     return this.dashboardService.getData();
+  }
+}
+```
+
+### ObservableQueue
+
+O decorator `ObservableQueue` serializa a execução de observables, garantindo que apenas um seja executado por vez dentro de uma fila específica, enfileirando os demais.
+
+```typescript
+import { ObservableQueue } from '~shared/decorators';
+
+@Injectable()
+export class DocumentService {
+  // Fila básica baseada no nome do método
+  @ObservableQueue()
+  saveDocument(doc: Document): Observable<SaveResult> {
+    return this.http.post<SaveResult>('/api/documents', doc);
+  }
+  
+  // Fila com ID específico e notificações
+  @ObservableQueue({
+    queueId: 'user-operations',
+    showQueueNotification: true,
+    onEnqueue: (length) => this.notifyUser(`${length} operações pendentes`),
+    onStart: () => this.showLoading(),
+    onFinish: () => this.hideLoading()
+  })
+  updateUserProfile(userId: string, data: ProfileData): Observable<User> {
+    return this.http.put<User>(`/api/users/${userId}`, data);
+  }
+}
+```
+
+### BulkOperator
+
+O decorator `BulkOperator` aplica processamento em lote para operações com coleções, dividindo automaticamente conjuntos grandes de dados em lotes menores.
+
+```typescript
+import { BulkOperator } from '~shared/decorators';
+
+@Injectable()
+export class ImportService {
+  // Processamento básico em lotes de 50 itens
+  @BulkOperator({
+    batchSize: 50
+  })
+  saveEmployees(employees: Employee[]): Observable<SaveResult[]> {
+    return this.http.post<SaveResult[]>('/api/employees/batch', employees);
+  }
+  
+  // Processamento avançado com transformação e controle de concorrência
+  @BulkOperator({
+    keySelector: (user) => user.id,
+    batchSize: 20,
+    parallel: true,
+    maxConcurrent: 3,
+    resultTransformer: (results, originalItems) => ({
+      successCount: results.filter(r => r.success).length,
+      failureCount: results.filter(r => !r.success).length,
+      items: results
+    }),
+    onBatchStart: (items, index) => console.log(`Processando lote ${index + 1}...`),
+    onBatchComplete: (results, index) => console.log(`Lote ${index + 1} concluído`)
+  })
+  syncUserProfiles(users: UserProfile[]): Observable<SyncResult[]> {
+    // Este método será chamado para cada item individual
+    return this.http.put<SyncResult>('/api/users/sync', users);
+  }
+}
+```
+
+### PollingObservable
+
+O decorator `PollingObservable` implementa uma estratégia de polling automático, repetindo a chamada em intervalos configuráveis até que uma condição seja atendida.
+
+```typescript
+import { PollingObservable } from '~shared/decorators';
+
+@Injectable()
+export class JobService {
+  // Polling básico a cada 5 segundos
+  @PollingObservable()
+  checkJobStatus(jobId: string): Observable<JobStatus> {
+    return this.http.get<JobStatus>(`/api/jobs/${jobId}/status`);
+  }
+  
+  // Polling avançado com condição de parada
+  @PollingObservable({
+    interval: 2000,
+    maxDuration: 3 * 60 * 1000, // 3 minutos
+    maxAttempts: 30,
+    stopPredicate: (status) => status.state === 'completed' || status.state === 'failed',
+    onAttempt: (attempt, status) => this.updateProgress(status?.progress || 0),
+    onComplete: (final, reason) => {
+      if (reason === 'predicate' && final?.state === 'completed') {
+        this.notifySuccess('Processo concluído com sucesso!');
+      } else {
+        this.notifyError('Tempo limite excedido');
+      }
+    }
+  })
+  monitorProcessExecution(processId: string): Observable<ProcessStatus> {
+    return this.http.get<ProcessStatus>(`/api/processes/${processId}`);
+  }
+}
+```
+
+### ObservableMemoize
+
+O decorator `ObservableMemoize` implementa memoização de resultados para métodos que retornam Observable, reutilizando valores previamente calculados para evitar recálculos desnecessários.
+
+```typescript
+import { ObservableMemoize } from '~shared/decorators';
+
+@Injectable()
+export class AnalyticsService {
+  // Memoização básica sem expiração
+  @ObservableMemoize()
+  getExpensiveCalculation(input: number): Observable<CalculationResult> {
+    console.log('Performing expensive calculation');
+    return of(this.performComplexMath(input)).pipe(delay(2000));
+  }
+  
+  // Memoização com expiração e chave personalizada
+  @ObservableMemoize({
+    expirationTime: 5 * 60 * 1000, // 5 minutos
+    keyGenerator: (userId, filters) => `${userId}_${filters.sort}_${filters.page}`,
+    maxSize: 50
+  })
+  getUserReports(userId: string, filters: ReportFilters): Observable<Report[]> {
+    return this.reportService.generateUserReports(userId, filters);
+  }
+  
+  // Limpar cache programaticamente - método criado automaticamente
+  clearCache() {
+    // Isso invocará o método gerado automaticamente
+    this.clearGetExpensiveCalculationCache();
+    this.clearGetUserReportsCache();
+  }
+}
+```
+
+### SmartRetry
+
+O decorator `SmartRetry` implementa estratégias avançadas de retry para Observable, com suporte a diferentes algoritmos de espera e políticas de recuperação.
+
+```typescript
+import { SmartRetry } from '~shared/decorators';
+
+@Injectable()
+export class ReliableApiService {
+  // Retry simples com estratégia de backoff exponencial
+  @SmartRetry({
+    maxRetries: 3,
+    strategy: 'exponential',
+    initialDelay: 1000,
+    maxDelay: 10000
+  })
+  getData(): Observable<Data[]> {
+    return this.http.get<Data[]>('/api/data');
+  }
+  
+  // Retry avançado com diferentes estratégias
+  @SmartRetry({
+    maxRetries: 5,
+    strategy: 'fibonacci', // Outras opções: 'immediate', 'fixed-delay', 'exponential', 'random', 'incremental'
+    initialDelay: 500,
+    maxDelay: 30000,
+    retryStatusCodes: [429, 503],
+    retryPredicate: (err) => err.message.includes('timeout'),
+    beforeRetry: (err, count, delay) => {
+      this.notificationService.info(`Tentativa ${count} falhou. Tentando novamente em ${delay}ms...`);
+      this.logService.warn('Retry', { error: err.message, attempt: count });
+    },
+  })
+  someMethod(): Observable<any> {
+    // ...
+  }
+}
+```
+
+## LocalStorageCache
+
+O decorator `LocalStorageCache` armazena os resultados de um método Observable no localStorage, melhorando o desempenho e proporcionando suporte offline parcial.
+
+```typescript
+import { LocalStorageCache } from '~shared/decorators';
+
+@Injectable()
+export class CachedDataService {
+  constructor(private http: HttpClient) {}
+
+  // Cache simples com TTL de 1 hora
+  @LocalStorageCache({
+    ttl: 3600000, // 1 hora
+    keyPrefix: 'employee_'
+  })
+  public getEmployeeById(id: string): Observable<Employee> {
+    return this.http.get<Employee>(`/api/employees/${id}`);
+  }
+
+  // Cache com atualização em background e validação
+  @LocalStorageCache({
+    ttl: 24 * 60 * 60 * 1000, // 24 horas
+    backgroundRefresh: true,
+    validator: (model) => !!model && model.status === 'ACTIVE',
+    keyGenerator: (args) => `model_${args[0].companyId}_${args[0].departmentId}`
+  })
+  public getOnboardingModels(params: OnboardingModelParams): Observable<OnboardingModel[]> {
+    return this.http.get<OnboardingModel[]>('/api/onboarding/models', { params });
+  }
+}
+```
+
+## ObservableWithProgress
+
+O decorator `ObservableWithProgress` facilita o rastreamento de progresso em operações assíncronas, como uploads, downloads ou processamentos em lote.
+
+```typescript
+import { ObservableWithProgress } from '~shared/decorators';
+
+@Injectable()
+export class FileUploadService {
+  constructor(private http: HttpClient) {}
+
+  // Adiciona suporte a progresso em upload de arquivos
+  @ObservableWithProgress()
+  uploadFiles(files: File[]): Observable<UploadResult> {
+    const formData = new FormData();
+    files.forEach((file, i) => formData.append(`file-${i}`, file));
+    
+    return this.http.post<UploadResult>('/api/upload', formData, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      tap(event => {
+        if (event.type === HttpEventType.UploadProgress && event.total) {
+          // Emite o progresso para o Subject criado pelo decorator
+          this.uploadFilesProgress$.next(event.loaded / event.total);
+        }
+      }),
+      filter(event => event.type === HttpEventType.Response),
+      map(event => event.body)
+    );
+  }
+}
+
+// No componente
+@Component({...})
+export class UploadComponent {
+  progressValue = 0;
+  
+  constructor(private uploadService: FileUploadService) {
+    // Assina o Subject de progresso criado pelo decorator
+    this.uploadService.uploadFilesProgress$.subscribe(progress => {
+      this.progressValue = Math.round(progress * 100);
+    });
+  }
+  
+  startUpload() {
+    this.uploadService.uploadFiles(this.selectedFiles).subscribe(result => {
+      console.log('Upload concluído!', result);
+    });
+  }
+}
+```
+
+## DebouncedMethod
+
+O decorator `DebouncedMethod` aplica um debounce em métodos para evitar execuções repetidas durante eventos rápidos, como digitação.
+
+```typescript
+import { DebouncedMethod } from '~shared/decorators';
+
+@Component({...})
+export class SearchComponent {
+  constructor(private searchService: SearchService) {}
+  
+  // Será executado apenas depois que o usuário parar de digitar por 300ms
+  @DebouncedMethod()
+  onSearchInput(term: string): void {
+    this.searchService.search(term).subscribe(results => {
+      this.searchResults = results;
+    });
+  }
+  
+  // Com configuração personalizada
+  @DebouncedMethod({
+    wait: 500,          // 500ms de espera
+    immediate: true,    // Executa a primeira chamada imediatamente
+    contextKey: 'filter' // Chave para distinguir de outros métodos com debounce
+  })
+  applyFilters(filters: any): void {
+    this.fetchFilteredData(filters);
+  }
+}
+```
+
+## FormStateTracking
+
+O decorator `FormStateTracking` adiciona rastreamento de estado e histórico de alterações em formulários Angular.
+
+```typescript
+import { FormStateTracking } from '~shared/decorators';
+
+@Component({...})
+@FormStateTracking({
+  trackHistory: true,
+  historySize: 5,
+  resetOnDestroy: true
+})
+export class UserFormComponent implements OnInit, OnDestroy {
+  // O decorator espera encontrar esta propriedade
+  public form: FormGroup;
+  
+  // Estas propriedades serão injetadas pelo decorator
+  // public formDirty: boolean;
+  // public originalFormValue: any;
+  // public formStateChanged: Subject<{dirty: boolean, value: any}>;
+  
+  constructor(private fb: FormBuilder) {}
+  
+  ngOnInit() {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
+    
+    // Monitorando mudanças de estado
+    this.formStateChanged.subscribe(state => {
+      this.saveButtonEnabled = state.dirty;
+    });
+  }
+  
+  discardChanges() {
+    // Método adicionado pelo decorator
+    this.resetFormToOriginal();
+  }
+  
+  undoLastChange() {
+    // Método adicionado pelo decorator
+    this.undoFormChange();
+  }
+  
+  ngOnDestroy() {}
+}
+```
+
+## I18nSupport
+
+O decorator `I18nSupport` simplifica o trabalho com traduções em métodos que retornam strings ou objetos contendo chaves de tradução.
+
+```typescript
+import { I18nSupport } from '~shared/decorators';
+
+@Injectable()
+export class MessageService {
+  constructor(private translateService: TranslateService) {}
+
+  // Traduz strings que são chaves de tradução
+  @I18nSupport({ autoTranslate: true })
+  getErrorMessage(code: string): string {
+    switch (code) {
+      case '404': return 'ERRORS.NOT_FOUND';
+      case '403': return 'ERRORS.FORBIDDEN';
+      default: return 'ERRORS.UNKNOWN';
+    }
+    // Resultado: texto traduzido em vez da chave
+  }
+  
+  // Traduz campos específicos em objetos
+  @I18nSupport({ 
+    translateFields: ['title', 'description', 'buttonText']
+  })
+  getDialogConfig(type: string): DialogConfig {
+    return {
+      title: 'DIALOG.CONFIRMATION_TITLE',     // será traduzido
+      description: 'DIALOG.DELETE_CONFIRMATION', // será traduzido
+      buttonText: 'COMMON.CONFIRM',           // será traduzido
+      icon: 'warning',                       // não será traduzido
+      width: '400px'                         // não será traduzido
+    };
+  }
+}
+```
+
+## FeatureToggle
+
+O decorator `FeatureToggle` controla o acesso a recursos com base em feature flags, permitindo habilitar/desabilitar funcionalidades sem reimplantar a aplicação.
+
+```typescript
+import { FeatureToggle } from '~shared/decorators';
+
+@Injectable()
+export class ContentGeneratorService {
+  constructor(
+    private http: HttpClient,
+    private featureToggleService: FeatureToggleService,
+    private router: Router
+  ) {}
+
+  // Método que só é executado se a feature estiver habilitada
+  @FeatureToggle({
+    featureName: 'contentGenerator',
+    whenDisabled: 'warn',
+    errorMessage: 'O gerador de conteúdo não está disponível'
+  })
+  generateOnboardingContent(model: OnboardingModel): Observable<ContentResult> {
+    return this.http.post<ContentResult>('/api/generate-content', model);
+  }
+  
+  // Com redirecionamento quando desabilitado
+  @FeatureToggle({
+    featureName: 'customEmailTemplates',
+    whenDisabled: 'redirect',
+    redirectTo: '/plans/upgrade',
+    errorMessage: 'Templates personalizados não estão disponíveis no seu plano'
+  })
+  saveEmailTemplate(template: EmailTemplate): Observable<EmailTemplate> {
+    return this.http.post<EmailTemplate>('/api/email-templates', template);
+  }
+  
+  // Com método de fallback alternativo
+  @FeatureToggle({
+    featureName: 'advancedAnalytics',
+    whenDisabled: 'fallback',
+    fallbackMethod: 'getBasicAnalytics'
+  })
+  getAdvancedAnalytics(params: AnalyticsParams): Observable<AnalyticsData> {
+    return this.http.post<AnalyticsData>('/api/analytics/advanced', params);
+  }
+  
+  // Método de fallback
+  getBasicAnalytics(params: AnalyticsParams): Observable<AnalyticsData> {
+    return this.http.post<AnalyticsData>('/api/analytics/basic', params);
+  }
+}
+    onFailure: () => this.notificationService.error('Serviço indisponível. Tente novamente mais tarde.'),
+    fallbackValue: { empty: true, reason: 'service_unavailable' }
+  })
+  importantOperation(): Observable<OperationResult> {
+    return this.operationService.execute();
   }
 }
 ```

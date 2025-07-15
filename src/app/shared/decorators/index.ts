@@ -68,3 +68,18 @@ export { CatchAndRetryWithBackoff } from './catch-and-retry-with-backoff-decorat
 export { ConditionalOperator } from './conditional-operator-decorator';
 export { StateManager, ManagedState } from './state-manager-decorator';
 export { MinimumLoadingTime, LoadingTiming } from './minimum-loading-time-decorator';
+
+// Decorators adicionais para observables
+export { ObservableQueue } from './observable-queue-decorator';
+export { BulkOperator } from './bulk-operator-decorator';
+export { PollingObservable } from './polling-observable-decorator';
+export { ObservableMemoize } from './observable-memoize-decorator';
+export { SmartRetry, RetryStrategy } from './smart-retry-decorator';
+
+// Decorators avançados para casos específicos
+export { ObservableWithProgress } from './observable-with-progress-decorator';
+export { LocalStorageCache } from './local-storage-cache-decorator';
+export { DebouncedMethod } from './debounced-method-decorator';
+export { FeatureToggle } from './feature-toggle-decorator';
+export { I18nSupport } from './i18n-support-decorator';
+export { FormStateTracking } from './form-state-tracking-decorator';
